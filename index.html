@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SNCT Games</title>
+  <meta name="description" content="鈴鹿高専祭で遊べるブラウザゲーム集。スマホですぐ遊べます。">
+  <meta property="og:title" content="SNCT Games">
+  <meta property="og:description" content="鈴鹿高専祭で遊べるブラウザゲーム集。スマホですぐ遊べます。">
+  <meta name="theme-color" content="#0f172a">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --dash: #f59e0b;
+      --shooter: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: max(32px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+    }
+    header { text-align: center; margin-bottom: 28px; }
+    h1 { font-size: clamp(28px, 8vw, 40px); letter-spacing: .04em; }
+    header p { color: var(--muted); margin-top: 8px; font-size: 14px; }
+    main { width: 100%; max-width: 440px; display: grid; gap: 16px; }
+    a.game {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      border-left: 6px solid var(--accent);
+      transition: transform .1s;
+    }
+    a.game:active { transform: scale(.98); }
+    a.game h2 { font-size: 22px; color: var(--accent); }
+    a.game p { color: var(--muted); font-size: 14px; margin-top: 6px; line-height: 1.6; }
+    a.game .play {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    footer { margin-top: auto; padding-top: 32px; color: var(--muted); font-size: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SNCT Games</h1>
+    <p>鈴鹿高専祭で遊べるブラウザゲーム集</p>
+  </header>
+  <main>
+    <a class="game" style="--accent: var(--dash)" href="https://kosendash.vercel.app">
+      <h2>高専ダッシュ！</h2>
+      <p>鈴鹿高専の5学科をテーマにしたタイムアタック型のステージクリアゲーム。</p>
+      <span class="play">あそぶ ▶</span>
+    </a>
+    <a class="game" style="--accent: var(--shooter)" href="https://casual-games-six.vercel.app">
+      <h2>暇つぶしシューティング</h2>
+      <p>指一本で操作できる縦スクロールシューティング。全8ステージ、ランキング付き。</p>
+      <span class="play">あそぶ ▶</span>
+    </a>
+  </main>
+  <footer>スマートフォンでの縦画面プレイがおすすめです</footer>
+</body>
+</html>
