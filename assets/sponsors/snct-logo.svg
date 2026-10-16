@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="snctGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+  </defs>
+  <!-- 背景・シンボルマーク -->
+  <rect x="4" y="8" width="44" height="44" rx="10" fill="url(#snctGrad)" />
+  <path d="M 16 34 L 26 18 L 36 34 Z" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" />
+  <circle cx="26" cy="30" r="3" fill="#ffffff" />
+  <!-- テキスト -->
+  <text x="60" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="800" fill="#0f172a" letter-spacing="1">SNCT FES 2026</text>
+  <text x="60" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#64748b">鈴鹿高専祭 実行委員会</text>
+</svg>

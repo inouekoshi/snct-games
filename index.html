@@ -3,78 +3,599 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>SNCT Games</title>
-  <meta name="description" content="鈴鹿高専祭で遊べるブラウザゲーム集。スマホですぐ遊べます。">
-  <meta property="og:title" content="SNCT Games">
-  <meta property="og:description" content="鈴鹿高専祭で遊べるブラウザゲーム集。スマホですぐ遊べます。">
-  <meta name="theme-color" content="#0f172a">
+  <title>SNCT Games | 鈴鹿高専祭2026 公式ブラウザゲーム</title>
+  <meta name="description" content="鈴鹿高専祭（2026.11.03）で遊べるブラウザゲーム集！インストール不要・スマホですぐ遊べます。">
+
+  <!-- OGP & SNS -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://snct-games.vercel.app">
+  <meta property="og:title" content="SNCT Games | 鈴鹿高専祭2026 公式ブラウザゲーム">
+  <meta property="og:description" content="インストール不要・スマホですぐ遊べる！鈴鹿高専祭オリジナルブラウザゲーム集。">
+  <meta property="og:image" content="https://snct-games.vercel.app/qr/snct-games-qr.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- テーマカラー & アイコン -->
+  <meta name="theme-color" content="#070b14">
+  <link rel="apple-touch-icon" href="assets/icons/dash-icon.png">
+  <link rel="icon" type="image/png" href="assets/icons/dash-icon.png">
+
+  <!-- 事前接続（ゲーム起動時の高速化） -->
+  <link rel="preconnect" href="https://kosendash.vercel.app">
+  <link rel="preconnect" href="https://casual-games-six.vercel.app">
+  <link rel="dns-prefetch" href="https://kosendash.vercel.app">
+  <link rel="dns-prefetch" href="https://casual-games-six.vercel.app">
+
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --dash: #f59e0b;
-      --shooter: #38bdf8;
+      --bg: #070b14;
+      --card-bg: rgba(17, 24, 39, 0.88);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-dash: #f59e0b;
+      --accent-dash-glow: rgba(245, 158, 11, 0.25);
+      --accent-shooter: #38bdf8;
+      --accent-shooter-glow: rgba(56, 189, 248, 0.25);
+      --accent-cyan: #06b6d4;
+      --accent-pink: #ec4899;
     }
-    * { box-sizing: border-box; margin: 0; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       min-height: 100dvh;
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 60%, rgba(236, 72, 153, 0.08) 0%, transparent 40%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
       color: var(--text);
-      font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: max(32px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+      padding: max(24px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
-    header { text-align: center; margin-bottom: 28px; }
-    h1 { font-size: clamp(28px, 8vw, 40px); letter-spacing: .04em; }
-    header p { color: var(--muted); margin-top: 8px; font-size: 14px; }
-    main { width: 100%; max-width: 440px; display: grid; gap: 16px; }
-    a.game {
-      display: block;
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ヘッダー */
+    header {
+      text-align: center;
+      padding: 8px 0 6px;
+    }
+
+    .event-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+    }
+
+    .free-play-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    h1 {
+      font-size: clamp(32px, 9vw, 42px);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .feature-pills {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* ゲームカード */
+    .games-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .game-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      overflow: hidden;
+    }
+
+    .game-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--card-accent);
+      box-shadow: 0 0 12px var(--card-accent);
+    }
+
+    .game-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .game-card:active {
+      transform: scale(0.985);
+    }
+
+    .game-card.dash {
+      --card-accent: var(--accent-dash);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4), inset 0 0 40px var(--accent-dash-glow);
+    }
+
+    .game-card.shooter {
+      --card-accent: var(--accent-shooter);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4), inset 0 0 40px var(--accent-shooter-glow);
+    }
+
+    .target-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--card-accent);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .game-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .game-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      flex-shrink: 0;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .game-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .game-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+
+    .genre-label {
+      font-size: 12px;
+      color: var(--card-accent);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      color: #cbd5e1;
+    }
+
+    .game-desc {
+      color: #cbd5e1;
+      font-size: 13.5px;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .btn-play-wrap {
+      margin-top: 16px;
+    }
+
+    /* カード全面クリッカブル用リンク */
+    .btn-play {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--card-accent);
+      color: #070b14;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      box-shadow: 0 4px 14px var(--card-accent);
+      transition: filter 0.15s ease;
+    }
+
+    .btn-play::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .btn-play:hover {
+      filter: brightness(1.1);
+    }
+
+    /* スポンサーセクション */
+    .sponsors-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 18px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .section-header h2 {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-header .sub-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .sponsors-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sponsor-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 10px;
       text-decoration: none;
       color: inherit;
-      background: var(--card);
-      border-radius: 16px;
-      padding: 20px;
-      border-left: 6px solid var(--accent);
-      transition: transform .1s;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
-    a.game:active { transform: scale(.98); }
-    a.game h2 { font-size: 22px; color: var(--accent); }
-    a.game p { color: var(--muted); font-size: 14px; margin-top: 6px; line-height: 1.6; }
-    a.game .play {
-      display: inline-block;
-      margin-top: 14px;
-      padding: 8px 18px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: var(--bg);
+
+    .sponsor-card:active {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ロゴ視認性保証コンテナ（白系アイランド） */
+    .sponsor-logo-box {
+      width: 100px;
+      height: 44px;
+      background: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      flex-shrink: 0;
+    }
+
+    .sponsor-logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .sponsor-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sponsor-name {
+      font-size: 13px;
       font-weight: 700;
-      font-size: 14px;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    footer { margin-top: auto; padding-top: 32px; color: var(--muted); font-size: 12px; text-align: center; }
+
+    .sponsor-message {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* フッター */
+    footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .booth-info {
+      width: 100%;
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #67e8f9;
+      line-height: 1.5;
+    }
+
+    .btn-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn-share:active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .notes {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .copyright {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    /* アニメーション抑制 */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>SNCT Games</h1>
-    <p>鈴鹿高専祭で遊べるブラウザゲーム集</p>
-  </header>
-  <main>
-    <a class="game" style="--accent: var(--dash)" href="https://kosendash.vercel.app">
-      <h2>高専ダッシュ！</h2>
-      <p>鈴鹿高専の5学科をテーマにしたタイムアタック型のステージクリアゲーム。</p>
-      <span class="play">あそぶ ▶</span>
-    </a>
-    <a class="game" style="--accent: var(--shooter)" href="https://casual-games-six.vercel.app">
-      <h2>暇つぶしシューティング</h2>
-      <p>指一本で操作できる縦スクロールシューティング。全8ステージ、ランキング付き。</p>
-      <span class="play">あそぶ ▶</span>
-    </a>
-  </main>
-  <footer>スマートフォンでの縦画面プレイがおすすめです</footer>
+  <div class="container">
+    <!-- ヘッダー -->
+    <header>
+      <div class="event-badge">
+        <span class="free-play-dot"></span>
+        <span>鈴鹿高専祭 2026.11.03 [Tue]</span>
+      </div>
+      <h1>SNCT GAMES</h1>
+      <p class="subtitle">公式ブラウザゲームアリーナ</p>
+      <div class="feature-pills">
+        <span class="pill">📱 スマホ対応</span>
+        <span class="pill">⚡ インストール不要</span>
+        <span class="pill">🆓 完全無料</span>
+      </div>
+    </header>
+
+    <!-- ゲーム一覧 -->
+    <main class="games-list">
+      <!-- ゲーム1: 高専ダッシュ！ -->
+      <article class="game-card dash">
+        <div class="target-badge">【高専生・卒業生・受験生におすすめ！】</div>
+        <div class="game-top">
+          <img src="assets/icons/dash-icon.png" alt="高専ダッシュ！" class="game-icon" width="64" height="64" loading="eager" decoding="async">
+          <div class="game-info">
+            <h2 class="game-title">高専ダッシュ！</h2>
+            <div class="genre-label">タイムアタック・アクション</div>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">#鈴鹿高専5学科</span>
+          <span class="tag">#目安2分</span>
+          <span class="tag">#学科別ギミック</span>
+        </div>
+        <p class="game-desc">鈴鹿高専の5学科をテーマにしたハイスピード障害物アクション！学科ごとの特殊ギミックを乗り越えて最速クリアを目指せ！</p>
+        <div class="btn-play-wrap">
+          <a href="https://kosendash.vercel.app" class="btn-play">
+            <span>START ▶ (無料)</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- ゲーム2: 暇つぶしシューティング -->
+      <article class="game-card shooter">
+        <div class="target-badge">【待ち時間にサクッと爽快プレイ！】</div>
+        <div class="game-top">
+          <img src="assets/icons/shooter-icon.png" alt="暇つぶしシューティング" class="game-icon" width="64" height="64" loading="eager" decoding="async">
+          <div class="game-info">
+            <h2 class="game-title">暇つぶしシューティング</h2>
+            <div class="genre-label">縦スクロールSTG</div>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">#指1本操作</span>
+          <span class="tag">#全8ステージ</span>
+          <span class="tag">#オンラインランキング</span>
+        </div>
+        <p class="game-desc">片手で爽快に撃ちまくる王道縦スクロールSTG！全8ステージを攻略してハイスコアランキングに名前を刻もう！</p>
+        <div class="btn-play-wrap">
+          <a href="https://casual-games-six.vercel.app" class="btn-play">
+            <span>START ▶ (無料)</span>
+          </a>
+        </div>
+      </article>
+    </main>
+
+    <!-- 協賛企業・スポンサーエリア -->
+    <section class="sponsors-section">
+      <div class="section-header">
+        <h2>
+          <span>🤝 SPONSORS</span>
+        </h2>
+        <span class="sub-badge">協賛企業・団体</span>
+      </div>
+      <div class="sponsors-grid">
+        <!-- スポンサー枠1: 公式応援（鈴鹿高専祭 実行委員会） -->
+        <a href="https://snct-games.vercel.app" class="sponsor-card" target="_blank" rel="noopener noreferrer">
+          <div class="sponsor-logo-box">
+            <img src="assets/sponsors/snct-logo.svg" alt="鈴鹿高専祭 実行委員会">
+          </div>
+          <div class="sponsor-content">
+            <div class="sponsor-name">鈴鹿高専祭 実行委員会</div>
+            <div class="sponsor-message">高専祭のゲーム企画を応援しています！</div>
+          </div>
+        </a>
+
+        <!-- スポンサー枠2: 協賛パートナー枠（プレースホルダー / 差し替え可能） -->
+        <a href="https://snct-games.vercel.app" class="sponsor-card" target="_blank" rel="noopener noreferrer">
+          <div class="sponsor-logo-box">
+            <img src="assets/sponsors/sponsor-placeholder.svg" alt="協賛パートナー枠">
+          </div>
+          <div class="sponsor-content">
+            <div class="sponsor-name">協賛企業様 パートナー枠</div>
+            <div class="sponsor-message">企業ロゴと応援メッセージを掲載いただけます</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+      <div class="booth-info">
+        🎪 <strong>リアル展示ブース案内</strong><br>
+        校内展示ブースでは大画面での実機プレイ・対戦も実施中！
+      </div>
+
+      <button id="btnShare" class="btn-share" type="button">
+        <span>📤 高専祭ゲームをシェア・友達に教える</span>
+      </button>
+
+      <p class="notes">
+        推奨環境: iOS Safari / Android Chrome（スマートフォン縦画面推奨）
+      </p>
+
+      <div class="copyright">
+        &copy; 2026 鈴鹿高専祭 SNCT Games
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Web Share API ＋ X共有フォールバック
+    const btnShare = document.getElementById('btnShare');
+    if (btnShare) {
+      btnShare.addEventListener('click', async () => {
+        const shareData = {
+          title: 'SNCT Games | 鈴鹿高専祭2026 公式ブラウザゲーム',
+          text: '鈴鹿高専祭のブラウザゲーム「SNCT Games」で遊んでるよ！スマホですぐ遊べるオリジナルゲーム🎮 #鈴鹿高専祭 #SNCTGames',
+          url: 'https://snct-games.vercel.app'
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            // ユーザーによるキャンセル等は無視
+          }
+        } else {
+          // PCや非対応環境向けにX共有画面を開く
+          const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}`;
+          window.open(twitterUrl, '_blank', 'noopener,noreferrer');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
