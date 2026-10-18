@@ -3,375 +3,607 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
-  <title>SNCT Games | 鈴鹿高専祭2026 公式ブラウザゲーム</title>
-  <meta name="description" content="鈴鹿高専祭（2026.11.03）で遊べるブラウザゲーム集！インストール不要・スマホですぐ遊べます。">
+  <title>SNCT Games | 第61回鈴鹿高専祭「collage」ブラウザゲーム集</title>
+  <meta name="description" content="第61回鈴鹿高専祭「collage」（2026.10/31-11/1）で遊べるブラウザゲーム集！インストール不要・スマホですぐ遊べます。">
 
   <!-- OGP & SNS -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://snct-games.vercel.app">
-  <meta property="og:title" content="SNCT Games | 鈴鹿高専祭2026 公式ブラウザゲーム">
+  <meta property="og:title" content="SNCT Games | 第61回鈴鹿高専祭「collage」ブラウザゲーム集">
   <meta property="og:description" content="インストール不要・スマホですぐ遊べる！鈴鹿高専祭オリジナルブラウザゲーム集。">
   <meta property="og:image" content="https://snct-games.vercel.app/qr/snct-games-qr.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- テーマカラー & アイコン -->
-  <meta name="theme-color" content="#070b14">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- テーマカラー & アイコン（高専祭HPの画用紙カラー #f8f8f8 に統一） -->
+  <meta name="theme-color" content="#f8f8f8">
   <link rel="apple-touch-icon" href="assets/icons/dash-icon.png">
   <link rel="icon" type="image/png" href="assets/icons/dash-icon.png">
 
-  <!-- 事前接続（ゲーム起動時の高速化） -->
+  <!-- 事前接続（ゲーム起動時の高速化 + 高専祭HP共通フォント） -->
   <link rel="preconnect" href="https://kosendash.vercel.app">
   <link rel="preconnect" href="https://casual-games-six.vercel.app">
   <link rel="dns-prefetch" href="https://kosendash.vercel.app">
   <link rel="dns-prefetch" href="https://casual-games-six.vercel.app">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@700&family=Murecho:wght@700&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 
   <style>
+    /* ===== 第61回鈴鹿高専祭「collage」デザインシステム準拠 ===== */
     :root {
-      --bg: #070b14;
-      --card-bg: rgba(17, 24, 39, 0.9);
-      --card-border: rgba(255, 255, 255, 0.12);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent-dash: #f59e0b;
-      --accent-dash-glow: rgba(245, 158, 11, 0.22);
-      --accent-shooter: #38bdf8;
-      --accent-shooter-glow: rgba(56, 189, 248, 0.22);
-      --accent-cyan: #06b6d4;
+      --blue: #1a33d6;
+      --red: #e31b23;
+      --yellow: #f4d21f;
+      --ink: #111111;
+      --paper: #f8f8f8;
+
+      --font-body: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", -apple-system, sans-serif;
+      --font-num: "Bebas Neue", "Impact", "Arial Black", sans-serif;
+      --font-logo: "Murecho", var(--font-body);
+      --font-day: "Courier Prime", "Courier New", monospace;
+
+      --header-height-sp: 54px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --header-offset-sp: calc(var(--header-height-sp) + var(--safe-top));
+      --content-sp: 520px;
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
 
     html {
-      touch-action: manipulation;
       -webkit-text-size-adjust: 100%;
-      overflow-x: hidden;
+      touch-action: manipulation;
+      scroll-behavior: smooth;
+      background: var(--paper);
     }
 
     body {
       min-height: 100dvh;
-      background-color: var(--bg);
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.14) 0%, transparent 50%),
-        radial-gradient(circle at 85% 55%, rgba(245, 158, 11, 0.08) 0%, transparent 45%),
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      position: relative;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: max(20px, env(safe-area-inset-top)) 14px max(32px, env(safe-area-inset-bottom));
-      line-height: 1.5;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
-    /* スマホ縦画面に最適化したメインコンテナ */
-    .container {
-      width: 100%;
-      max-width: 420px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+    /* 紙の質感（画用紙の繊維＋ムラ） */
+    body::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.9" numOctaves="4" seed="11" result="fiber"/><feColorMatrix in="fiber" type="saturate" values="0"/></filter><rect width="240" height="240" filter="url(#n)"/></svg>');
+      background-size: 240px 240px;
+      opacity: 0.1;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 999;
     }
 
-    /* ヘッダー */
-    header {
-      text-align: center;
-      padding: 6px 0 4px;
+    img, svg {
+      display: block;
+      max-width: 100%;
     }
 
-    .event-badge {
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .num {
+      font-family: var(--font-num);
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== 共通コラージュ部品（Tape / Chip / Divider / Button / Star） ===== */
+    .tape {
+      display: inline-block;
+      position: relative;
+      padding: 6px 20px;
+      font-weight: 900;
+      z-index: 0;
+      line-height: 1.25;
+    }
+    .tape::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--tape-bg, var(--ink));
+      filter: url(#tape-edge);
+    }
+    .tape.black { --tape-bg: var(--ink); color: #fff; }
+    .tape.red { --tape-bg: var(--red); color: #fff; }
+    .tape.blue { --tape-bg: var(--blue); color: #fff; }
+    .tape.yellow { --tape-bg: var(--yellow); color: var(--ink); }
+
+    .chip {
+      position: relative;
+      z-index: 0;
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      padding: 3px 10px;
+      line-height: 1.3;
+    }
+    .chip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      filter: url(#tape-edge);
+    }
+    .chip.red::before { background: var(--red); }
+    .chip.blue::before { background: var(--blue); }
+    .chip.yellow { color: var(--ink); }
+    .chip.yellow::before { background: var(--yellow); }
+    .chip.black::before { background: var(--ink); }
+
+    .btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      color: #e2e8f0;
-      margin-bottom: 10px;
-    }
-
-    .free-play-dot {
-      width: 8px;
-      height: 8px;
-      background: #22c55e;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #22c55e;
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    h1 {
-      font-size: clamp(30px, 8.5vw, 38px);
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      background: linear-gradient(135deg, #ffffff 45%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
-      line-height: 1.15;
-      margin-bottom: 4px;
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 13.5px;
-      font-weight: 600;
-    }
-
-    .feature-pills {
-      display: flex;
       justify-content: center;
       gap: 6px;
-      margin-top: 10px;
+      position: relative;
+      z-index: 0;
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 12px 28px;
+      text-decoration: none;
+      transition: transform 0.12s ease;
+    }
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--tape-bg, var(--ink));
+      filter: url(#tape-edge);
+    }
+    .btn.yellow {
+      --tape-bg: var(--yellow);
+      color: var(--ink);
+    }
+    .btn.red {
+      --tape-bg: var(--red);
+      color: #fff;
+    }
+    .btn.blue {
+      --tape-bg: var(--blue);
+      color: #fff;
+    }
+    .btn:active {
+      transform: scale(0.97) !important;
+    }
+
+    .divider-clip {
+      overflow-x: clip;
+      width: 100%;
+    }
+    .divider {
+      height: 14px;
+      filter: url(#tape-edge);
+      margin: 4px -10px;
+    }
+    .divider.red { background: var(--red); }
+    .divider.blue { background: var(--blue); }
+
+    .star {
+      display: inline-block;
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ===== SP Sticky ヘッダー（高専祭HP準拠） ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper);
+      border-bottom: 2px solid var(--ink);
+    }
+    .site-header::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 100%;
+      height: 200px;
+      background: var(--paper);
+      pointer-events: none;
+    }
+    .header-inner {
+      max-width: var(--content-sp);
+      margin: 0 auto;
+      height: var(--header-offset-sp);
+      padding-top: var(--safe-top);
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .logo-sp {
+      font-family: var(--font-logo);
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 1.1;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+    .header-hp-link {
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 5px 12px;
+      position: relative;
+      z-index: 0;
+      color: var(--ink);
+      transform: rotate(-1.5deg);
+    }
+    .header-hp-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--yellow);
+      filter: url(#tape-edge);
+    }
+
+    /* ===== ヒーローセクション ===== */
+    .hero {
+      position: relative;
+      max-width: var(--content-sp);
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 18px 22px;
+      text-align: center;
+      overflow-x: clip;
+    }
+    /* 背景の破れ紙パターン装飾 */
+    .hero-pattern-left {
+      position: absolute;
+      top: 14px;
+      left: -8px;
+      width: 48px;
+      height: 48px;
+      transform: rotate(-8deg);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-pattern-right {
+      position: absolute;
+      bottom: 10px;
+      right: -6px;
+      width: 52px;
+      height: 44px;
+      transform: rotate(10deg);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-fg {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-banner {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .hero-title-wrap {
+      position: relative;
+      display: inline-block;
+      margin: 2px 0 6px;
+    }
+    .hero-title {
+      font-size: clamp(50px, 15vw, 68px);
+      line-height: 0.95;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+      text-shadow: 3px 3px 0 var(--yellow);
+    }
+    .hero-star-1 {
+      position: absolute;
+      top: -10px;
+      right: -22px;
+      color: var(--red);
+      font-size: 22px;
+      transform: rotate(15deg);
+    }
+    .hero-star-2 {
+      position: absolute;
+      bottom: -4px;
+      left: -20px;
+      color: var(--blue);
+      font-size: 18px;
+      transform: rotate(-18deg);
+    }
+    .hero-name {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--ink);
+      margin-top: 4px;
+    }
+    .theme-term {
+      white-space: nowrap;
+    }
+    .theme-yomi {
+      font-size: 0.7em;
+      margin-left: 0.1em;
+    }
+
+    /* 高専祭HP準拠の日付ブロック */
+    .hero-date {
+      margin-top: 12px;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.15em;
       flex-wrap: wrap;
     }
+    .hero-date .year {
+      font-size: 19px;
+    }
+    .hero-date .day-block {
+      position: relative;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      margin-right: 0.55em;
+    }
+    .hero-date .sep {
+      font-size: 18px;
+      align-self: center;
+    }
+    .hero-date .day {
+      position: absolute;
+      left: 100%;
+      top: 0.05em;
+      margin-left: 1.2em;
+      display: inline-block;
+      font-family: var(--font-day);
+      font-weight: 700;
+      font-size: 0.32em;
+      line-height: 1;
+      transform: rotate(90deg);
+      transform-origin: 0 0;
+      white-space: nowrap;
+    }
+    .hero-date .day.sat { color: var(--blue); }
+    .hero-date .day.sun { color: var(--red); }
 
-    .pill {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      color: #cbd5e1;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .hero-chips {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
     }
 
-    /* ゲームカード一覧 */
+    /* ===== セクション共通 ===== */
+    .section {
+      max-width: var(--content-sp);
+      width: 100%;
+      margin: 0 auto;
+      padding: 26px 18px;
+    }
+    .sec-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+    .sec-title {
+      font-size: 18px;
+      letter-spacing: 0.05em;
+    }
+    .sec-sub {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    /* ===== ゲームカード（ハードシャドウカード + マスキングテープ） ===== */
     .games-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
     }
 
     .game-card {
       position: relative;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 18px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      transition: transform 0.12s ease, border-color 0.12s ease;
-      overflow: hidden;
+      z-index: 0;
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      padding: 22px 16px 18px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
-
-    .game-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 100%;
-      background: var(--card-accent);
-      box-shadow: 0 0 12px var(--card-accent);
+    .game-card.tilt-left {
+      transform: rotate(-0.7deg);
     }
-
+    .game-card.tilt-right {
+      transform: rotate(0.7deg);
+    }
     .game-card:active {
-      transform: scale(0.98);
+      transform: translate(2px, 2px) rotate(0deg);
+      box-shadow: 2px 2px 0 var(--ink);
     }
 
-    .game-card.dash {
-      --card-accent: var(--accent-dash);
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), inset 0 0 36px var(--accent-dash-glow);
+    /* カード左上の角テープ */
+    .corner-tape {
+      position: absolute;
+      top: -10px;
+      left: 14px;
+      width: 76px;
+      height: 20px;
+      transform: rotate(-4deg);
+      filter: url(#tape-edge);
+      pointer-events: none;
     }
+    .corner-tape.yellow { background: var(--yellow); }
+    .corner-tape.red { background: var(--red); }
+    .corner-tape.blue { background: var(--blue); }
 
-    .game-card.shooter {
-      --card-accent: var(--accent-shooter);
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), inset 0 0 36px var(--accent-shooter-glow);
-    }
-
-    .target-badge {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--card-accent);
-      background: rgba(255, 255, 255, 0.06);
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-bottom: 10px;
+    .game-labels {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
     }
 
     .game-top {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .game-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 14px;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    .game-icon-frame {
+      width: 64px;
+      height: 64px;
       flex-shrink: 0;
-      background: #1e293b;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #f3ebd9;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      overflow: hidden;
+      transform: rotate(-2deg);
+    }
+    .game-icon-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .game-info {
       flex: 1;
       min-width: 0;
     }
-
     .game-title {
-      font-size: 19px;
-      font-weight: 800;
-      color: #ffffff;
+      font-size: 21px;
+      font-weight: 900;
+      color: var(--ink);
       line-height: 1.25;
     }
-
-    .genre-label {
+    .game-sub {
       font-size: 12px;
-      color: var(--card-accent);
       font-weight: 700;
+      color: var(--blue);
       margin-top: 2px;
     }
 
-    .tags {
+    .game-desc {
+      font-size: 13.5px;
+      color: var(--ink);
+      line-height: 1.65;
+      margin-top: 12px;
+    }
+
+    .game-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 12px;
+      list-style: none;
     }
-
-    .tag {
+    .game-tag-item {
       font-size: 11px;
-      font-weight: 600;
-      padding: 3px 8px;
-      background: rgba(255, 255, 255, 0.07);
-      border-radius: 6px;
-      color: #e2e8f0;
+      font-weight: 700;
+      padding: 2px 8px;
+      background: #f3ebd9;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
     }
 
-    .game-desc {
-      color: #cbd5e1;
-      font-size: 13px;
-      margin-top: 10px;
-      line-height: 1.55;
+    .game-cta-wrap {
+      margin-top: 16px;
+      text-align: center;
     }
-
-    .btn-play-wrap {
-      margin-top: 14px;
-    }
-
-    /* スマホで親指タップしやすい大型ボタン + カード全面リンク */
-    .btn-play {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+    .game-play-btn {
       width: 100%;
       min-height: 48px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      background: var(--card-accent);
-      color: #070b14;
-      font-weight: 800;
       font-size: 15px;
-      letter-spacing: 0.03em;
-      text-decoration: none;
-      box-shadow: 0 4px 14px var(--card-accent);
+      letter-spacing: 0.04em;
     }
-
-    .btn-play::after {
+    /* カード全面をタップ可能にする Stretch-link */
+    .game-play-btn::after {
       content: "";
       position: absolute;
       inset: 0;
       z-index: 1;
     }
 
-    /* スポンサーセクション（スマホ縦並び最適化：ロゴ → 企業名 → ホームページ） */
-    .sponsors-section {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 18px 16px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .section-header h2 {
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      color: #f1f5f9;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .section-header .sub-badge {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .sponsors-grid {
+    /* ===== スポンサーセクション（ロゴ → 企業名 → ホームページ） ===== */
+    .sponsors-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 20px;
     }
 
     .sponsor-card {
+      position: relative;
+      z-index: 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 14px;
-      padding: 14px;
+      gap: 12px;
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      padding: 22px 16px 16px;
+      color: var(--ink);
       text-decoration: none;
-      color: inherit;
-      transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
-
+    .sponsor-card:nth-child(odd) {
+      transform: rotate(-0.6deg);
+    }
+    .sponsor-card:nth-child(even) {
+      transform: rotate(0.6deg);
+    }
     .sponsor-card:active {
-      transform: scale(0.985);
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(56, 189, 248, 0.4);
+      transform: translate(2px, 2px) rotate(0deg);
+      box-shadow: 2px 2px 0 var(--ink);
     }
 
-    /* 1段目：ロゴ表示ボックス（白背景で黒文字・カラーロゴを鮮明に表示） */
+    .sponsor-badge {
+      position: absolute;
+      top: -12px;
+      left: 14px;
+      font-size: 11.5px;
+      padding: 3px 14px;
+    }
+
+    /* 1段目：ロゴ表示枠 */
     .sponsor-logo-box {
       width: 100%;
-      height: 68px;
+      height: 72px;
       background: #ffffff;
-      border-radius: 10px;
+      border: 1.5px dashed #cccccc;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 20px;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+      padding: 12px 18px;
     }
-
     .sponsor-logo-box img {
       max-width: 100%;
       max-height: 100%;
@@ -380,105 +612,143 @@
       object-fit: contain;
     }
 
-    /* 2段目・3段目：企業名 & ホームページ */
-    .sponsor-meta {
+    /* 2段目：企業名・サービス名 */
+    .sponsor-name-row {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      padding: 0 2px;
+      gap: 2px;
     }
-
-    .sponsor-name {
-      font-size: 14px;
+    .sponsor-label-small {
+      font-size: 10.5px;
       font-weight: 800;
-      color: #f8fafc;
+      color: #555;
+      letter-spacing: 0.04em;
+    }
+    .sponsor-name {
+      font-size: 15.5px;
+      font-weight: 900;
+      color: var(--ink);
       line-height: 1.35;
     }
 
-    .sponsor-hp {
+    /* 3段目：ホームページリンクバー */
+    .sponsor-hp-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
+      background: var(--paper);
+      border: 2px solid var(--ink);
+      box-shadow: 2px 2px 0 var(--ink);
+      padding: 8px 12px;
       font-size: 12px;
-      font-weight: 600;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      border-radius: 8px;
-      padding: 7px 10px;
-      margin-top: 2px;
+      font-weight: 800;
+      color: var(--blue);
     }
-
-    .sponsor-hp-url {
+    .sponsor-hp-text {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
-    .sponsor-hp-arrow {
+    .sponsor-hp-icon {
       flex-shrink: 0;
-      font-size: 12px;
-      margin-left: 6px;
+      font-weight: 900;
+      color: var(--ink);
     }
 
-    /* フッター */
-    footer {
+    /* ===== 会場案内カード（クラフト紙テクスチャ） ===== */
+    .notice-card {
+      position: relative;
+      background: #f3ebd9;
+      border: 2px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      padding: 16px;
+      transform: rotate(-0.5deg);
+      margin-top: 6px;
+    }
+    .notice-title {
+      font-size: 14px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .notice-text {
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    /* ===== フッター（高専祭HP Footer.astro 準拠） ===== */
+    .site-footer {
+      margin-top: auto;
+      background: var(--ink);
+      color: #fff;
+      text-align: center;
+      padding: 36px 18px calc(32px + env(safe-area-inset-bottom, 0px));
+    }
+    .footer-inner {
+      max-width: var(--content-sp);
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-      padding-top: 6px;
-      text-align: center;
+      gap: 18px;
     }
-
-    .booth-info {
+    .footer-title {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+    .footer-actions {
       width: 100%;
-      background: rgba(6, 182, 212, 0.08);
-      border: 1px solid rgba(6, 182, 212, 0.22);
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 12px;
-      color: #67e8f9;
-      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-
-    .btn-share {
+    .btn-share-collage {
+      width: 100%;
+      min-height: 46px;
+      background: var(--yellow);
+      color: var(--ink);
+      border: 2px solid #fff;
+      font-weight: 900;
+      font-size: 13.5px;
+      padding: 10px 16px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      width: 100%;
-      min-height: 48px;
-      padding: 12px 16px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: #ffffff;
-      font-size: 13.5px;
+      transform: rotate(-0.8deg);
+      transition: transform 0.12s ease;
+    }
+    .btn-share-collage:active {
+      transform: scale(0.98);
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      font-size: 12.5px;
       font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.12s ease, background 0.12s ease;
     }
-
-    .btn-share:active {
-      transform: scale(0.985);
-      background: rgba(255, 255, 255, 0.15);
+    .footer-links a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
-
-    .notes {
-      font-size: 11.5px;
-      color: var(--text-muted);
+    .footer-notes {
+      font-size: 11px;
+      opacity: 0.75;
       line-height: 1.5;
     }
-
     .copyright {
       font-size: 11px;
-      color: #64748b;
+      opacity: 0.6;
     }
 
-    /* アニメーション抑制 */
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
@@ -487,166 +757,318 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- ヘッダー -->
-    <header>
-      <div class="event-badge">
-        <span class="free-play-dot"></span>
-        <span>鈴鹿高専祭 2026.11.03 [Tue]</span>
-      </div>
-      <h1>SNCT GAMES</h1>
-      <p class="subtitle">公式ブラウザゲームアリーナ</p>
-      <div class="feature-pills">
-        <span class="pill">📱 スマホ専用設計</span>
-        <span class="pill">⚡ インストール不要</span>
-        <span class="pill">🆓 完全無料</span>
-      </div>
-    </header>
+  <!-- 第61回鈴鹿高専祭「collage」共通SVGフィルタ＆パターン定義 -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- テープの端のちぎれ -->
+      <filter id="tape-edge" x="-10%" y="-30%" width="120%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.045 0.28" numOctaves="3" seed="7" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="7" />
+      </filter>
+      <!-- 紙の破れ（より荒い） -->
+      <filter id="torn-edge" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="4" seed="3" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="14" />
+      </filter>
+      <!-- ハーフトーンドット -->
+      <pattern id="dots-blue" width="12" height="12" patternUnits="userSpaceOnUse">
+        <rect width="12" height="12" fill="white" />
+        <circle cx="6" cy="6" r="3" fill="#1A33D6" />
+      </pattern>
+      <pattern id="dots-black" width="14" height="14" patternUnits="userSpaceOnUse">
+        <rect width="14" height="14" fill="white" />
+        <circle cx="7" cy="7" r="2.6" fill="#111111" />
+      </pattern>
+      <!-- 市松 -->
+      <pattern id="check-blue" width="16" height="16" patternUnits="userSpaceOnUse">
+        <rect width="16" height="16" fill="#1A33D6" />
+        <rect width="8" height="8" fill="white" />
+        <rect x="8" y="8" width="8" height="8" fill="white" />
+      </pattern>
+      <!-- ストライプ -->
+      <pattern id="stripe-red" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="10" height="10" fill="white" />
+        <rect width="10" height="4.5" fill="#E31B23" />
+      </pattern>
+    </defs>
+  </svg>
 
-    <!-- ゲーム一覧 -->
-    <main class="games-list">
+  <!-- SP Sticky ヘッダー -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="https://www.snct-fes.info/" class="logo-sp">SUZUKA KOSEN FESTIVAL</a>
+      <a href="https://www.snct-fes.info/" class="header-hp-link" target="_blank" rel="noopener noreferrer">
+        高専祭HPへ ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- ヒーローセクション -->
+  <section class="hero">
+    <svg class="hero-pattern-left" aria-hidden="true">
+      <rect width="48" height="48" fill="url(#dots-blue)" filter="url(#torn-edge)"></rect>
+    </svg>
+    <svg class="hero-pattern-right" aria-hidden="true">
+      <rect width="52" height="44" fill="url(#stripe-red)" filter="url(#torn-edge)"></rect>
+    </svg>
+
+    <div class="hero-fg">
+      <p class="tape black hero-banner num" style="transform: rotate(-2deg);">
+        61st SUZUKA KOSEN FESTIVAL
+      </p>
+
+      <div>
+        <div class="hero-title-wrap">
+          <span class="star hero-star-1" aria-hidden="true">★</span>
+          <h1 class="hero-title num">SNCT GAMES</h1>
+          <span class="star hero-star-2" aria-hidden="true">★</span>
+        </div>
+      </div>
+
+      <p class="hero-name">
+        第61回鈴鹿高専祭<span class="theme-term">「collage<span class="theme-yomi">(コラージュ)</span>」</span>ゲーム集
+      </p>
+
+      <p class="hero-date num">
+        <span class="year">2026.</span>
+        <span class="day-block">10/31<span class="day sat">SAT</span></span>
+        <span class="sep">・</span>
+        <span class="day-block">11/1<span class="day sun">SUN</span></span>
+      </p>
+
+      <div class="hero-chips">
+        <span class="chip blue" style="transform: rotate(-2deg);">スマホで今すぐ遊べる</span>
+        <span class="chip red" style="transform: rotate(1.5deg);">インストール不要</span>
+        <span class="chip yellow" style="transform: rotate(-1.5deg);">完全無料</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 区切りテープ（赤） -->
+  <div class="divider-clip" aria-hidden="true">
+    <div class="divider red" style="transform: rotate(-1.1deg) scaleX(1.05);"></div>
+  </div>
+
+  <!-- ゲーム一覧セクション -->
+  <main class="section">
+    <div class="sec-head">
+      <h2 class="tape black sec-title num" style="transform: rotate(-1.5deg);">GAMES</h2>
+      <span class="sec-sub">タップしてゲーム起動 ▶</span>
+    </div>
+
+    <div class="games-list">
       <!-- ゲーム1: 高専ダッシュ！ -->
-      <article class="game-card dash">
-        <div class="target-badge">【高専生・卒業生・受験生におすすめ！】</div>
+      <article class="game-card tilt-left">
+        <div class="corner-tape yellow" aria-hidden="true"></div>
+        <div class="game-labels">
+          <span class="chip blue" style="transform: rotate(-1.5deg);">タイムアタック</span>
+          <span class="chip red" style="transform: rotate(1.2deg);">高専生・受験生におすすめ</span>
+        </div>
         <div class="game-top">
-          <img src="assets/icons/dash-icon.png" alt="高専ダッシュ！" class="game-icon" width="60" height="60" loading="eager" decoding="async">
+          <div class="game-icon-frame">
+            <img src="assets/icons/dash-icon.png" alt="高専ダッシュ！" width="64" height="64" loading="eager" decoding="async">
+          </div>
           <div class="game-info">
-            <h2 class="game-title">高専ダッシュ！</h2>
-            <div class="genre-label">タイムアタック・アクション</div>
+            <h3 class="game-title">高専ダッシュ！</h3>
+            <p class="game-sub">5学科テーマのステージクリア型アクション</p>
           </div>
         </div>
-        <div class="tags">
-          <span class="tag">#鈴鹿高専5学科</span>
-          <span class="tag">#目安2分</span>
-          <span class="tag">#学科別ギミック</span>
-        </div>
-        <p class="game-desc">鈴鹿高専の5学科をテーマにしたハイスピード障害物アクション！学科ごとの特殊ギミックを乗り越えて最速クリアを目指せ！</p>
-        <div class="btn-play-wrap">
-          <a href="https://kosendash.vercel.app" class="btn-play">
-            <span>START ▶ (無料)</span>
+        <p class="game-desc">
+          鈴鹿高専の5学科をテーマにしたハイスピード障害物アクション！学科ごとの特殊ギミックを乗り越えて最速クリアを目指せ！
+        </p>
+        <ul class="game-tags">
+          <li class="game-tag-item">#鈴鹿高専5学科</li>
+          <li class="game-tag-item">#1プレイ約2分</li>
+          <li class="game-tag-item">#タイムアタック</li>
+        </ul>
+        <div class="game-cta-wrap">
+          <a href="https://kosendash.vercel.app" class="btn yellow game-play-btn" style="transform: rotate(-0.8deg);">
+            <span>あそぶ ▶ (無料)</span>
           </a>
         </div>
       </article>
 
       <!-- ゲーム2: 暇つぶしシューティング -->
-      <article class="game-card shooter">
-        <div class="target-badge">【待ち時間にサクッと爽快プレイ！】</div>
+      <article class="game-card tilt-right">
+        <div class="corner-tape red" aria-hidden="true"></div>
+        <div class="game-labels">
+          <span class="chip blue" style="transform: rotate(1.4deg);">縦スクロールSTG</span>
+          <span class="chip red" style="transform: rotate(-1.3deg);">待ち時間にサクッと爽快</span>
+        </div>
         <div class="game-top">
-          <img src="assets/icons/shooter-icon.png" alt="暇つぶしシューティング" class="game-icon" width="60" height="60" loading="eager" decoding="async">
+          <div class="game-icon-frame" style="transform: rotate(2deg);">
+            <img src="assets/icons/shooter-icon.png" alt="暇つぶしシューティング" width="64" height="64" loading="eager" decoding="async">
+          </div>
           <div class="game-info">
-            <h2 class="game-title">暇つぶしシューティング</h2>
-            <div class="genre-label">縦スクロールSTG</div>
+            <h3 class="game-title">暇つぶしシューティング</h3>
+            <p class="game-sub">全8ステージ・オンラインランキング対応</p>
           </div>
         </div>
-        <div class="tags">
-          <span class="tag">#指1本操作</span>
-          <span class="tag">#全8ステージ</span>
-          <span class="tag">#オンラインランキング</span>
-        </div>
-        <p class="game-desc">片手で爽快に撃ちまくる王道縦スクロールSTG！全8ステージを攻略してハイスコアランキングに名前を刻もう！</p>
-        <div class="btn-play-wrap">
-          <a href="https://casual-games-six.vercel.app" class="btn-play">
-            <span>START ▶ (無料)</span>
+        <p class="game-desc">
+          指一本で操作できる縦スクロールシューティング！全8ステージを攻略してハイスコアランキングに名前を刻もう！
+        </p>
+        <ul class="game-tags">
+          <li class="game-tag-item">#指1本かんたん操作</li>
+          <li class="game-tag-item">#全8ステージ</li>
+          <li class="game-tag-item">#ランキング付き</li>
+        </ul>
+        <div class="game-cta-wrap">
+          <a href="https://casual-games-six.vercel.app" class="btn yellow game-play-btn" style="transform: rotate(0.8deg);">
+            <span>あそぶ ▶ (無料)</span>
           </a>
         </div>
       </article>
-    </main>
 
-    <!-- 協賛企業・スポンサーエリア（ロゴ → 企業名 → ホームページ） -->
-    <section class="sponsors-section">
-      <div class="section-header">
-        <h2>
-          <span>🤝 SPONSORS</span>
-        </h2>
-        <span class="sub-badge">協賛企業・提供サービス</span>
+      <!-- 展示・案内メモ -->
+      <div class="notice-card">
+        <p class="notice-title">
+          <span class="star" style="color: var(--red);">★</span>
+          <span>高専祭の待ち時間やキャンパス巡りのお供に！</span>
+        </p>
+        <p class="notice-text">
+          どちらもスマートフォンの縦画面でそのまま遊べます。高専祭の企画・展示・屋台の詳細は上部の「高専祭HPへ ↗」からチェックできます。
+        </p>
       </div>
-      <div class="sponsors-grid">
-        <!-- 1. 弁護士ドットコム株式会社（コーポレート） -->
-        <a href="https://www.bengo4.com/corporate/" class="sponsor-card" target="_blank" rel="noopener noreferrer">
-          <div class="sponsor-logo-box">
-            <img src="assets/sponsors/logo_bengo4-corpolate.png" alt="弁護士ドットコム株式会社" loading="lazy" decoding="async">
-          </div>
-          <div class="sponsor-meta">
-            <div class="sponsor-name">弁護士ドットコム株式会社</div>
-            <div class="sponsor-hp">
-              <span class="sponsor-hp-url">🌐 ホームページ: www.bengo4.com/corporate</span>
-              <span class="sponsor-hp-arrow">↗</span>
-            </div>
-          </div>
-        </a>
+    </div>
+  </main>
 
-        <!-- 2. 弁護士ドットコム（サービス） -->
-        <a href="https://www.bengo4.com/" class="sponsor-card" target="_blank" rel="noopener noreferrer">
-          <div class="sponsor-logo-box">
-            <img src="assets/sponsors/logo_B4.png" alt="弁護士ドットコム" loading="lazy" decoding="async">
-          </div>
-          <div class="sponsor-meta">
-            <div class="sponsor-name">弁護士ドットコム（弁護士ドットコム株式会社）</div>
-            <div class="sponsor-hp">
-              <span class="sponsor-hp-url">🌐 ホームページ: www.bengo4.com</span>
-              <span class="sponsor-hp-arrow">↗</span>
-            </div>
-          </div>
-        </a>
+  <!-- 区切りテープ（青） -->
+  <div class="divider-clip" aria-hidden="true">
+    <div class="divider blue" style="transform: rotate(0.9deg) scaleX(1.05);"></div>
+  </div>
 
-        <!-- 3. クラウドサイン -->
-        <a href="https://www.cloudsign.jp/" class="sponsor-card" target="_blank" rel="noopener noreferrer">
-          <div class="sponsor-logo-box">
-            <img src="assets/sponsors/logo_cloudsign.png" alt="クラウドサイン (CloudSign)" loading="lazy" decoding="async">
-          </div>
-          <div class="sponsor-meta">
-            <div class="sponsor-name">クラウドサイン（弁護士ドットコム株式会社）</div>
-            <div class="sponsor-hp">
-              <span class="sponsor-hp-url">🌐 ホームページ: www.cloudsign.jp</span>
-              <span class="sponsor-hp-arrow">↗</span>
-            </div>
-          </div>
-        </a>
+  <!-- スポンサーセクション（ロゴ → 企業名 → ホームページ） -->
+  <section class="section">
+    <div class="sec-head">
+      <h2 class="tape black sec-title num" style="transform: rotate(-1.2deg);">SPECIAL SPONSOR</h2>
+      <span class="sec-sub">特別協賛・提供サービス</span>
+    </div>
 
-        <!-- 4. LegalBrain エージェント -->
-        <a href="https://legalbrain.com/" class="sponsor-card" target="_blank" rel="noopener noreferrer">
-          <div class="sponsor-logo-box">
-            <img src="assets/sponsors/logo_LBA.png" alt="LegalBrain エージェント" loading="lazy" decoding="async">
-          </div>
-          <div class="sponsor-meta">
-            <div class="sponsor-name">LegalBrain エージェント（弁護士ドットコム株式会社）</div>
-            <div class="sponsor-hp">
-              <span class="sponsor-hp-url">🌐 ホームページ: legalbrain.com</span>
-              <span class="sponsor-hp-arrow">↗</span>
-            </div>
-          </div>
+    <div class="sponsors-list">
+      <!-- 1. 弁護士ドットコム株式会社（コーポレート） -->
+      <a
+        href="https://www.bengo4.com/corporate/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
+        class="sponsor-card"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="tape yellow sponsor-badge" style="transform: rotate(-2.5deg);">特別協賛</span>
+        <div class="sponsor-logo-box">
+          <img src="assets/sponsors/logo_bengo4-corpolate.png" alt="弁護士ドットコム株式会社 ロゴ" loading="lazy" decoding="async">
+        </div>
+        <div class="sponsor-name-row">
+          <span class="sponsor-label-small">企業名</span>
+          <div class="sponsor-name">弁護士ドットコム株式会社</div>
+        </div>
+        <div class="sponsor-hp-bar">
+          <span class="sponsor-hp-text">ホームページ: https://www.bengo4.com/corporate/</span>
+          <span class="sponsor-hp-icon" aria-hidden="true">↗</span>
+        </div>
+      </a>
+
+      <!-- 2. 弁護士ドットコム（サービス） -->
+      <a
+        href="https://www.bengo4.com/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
+        class="sponsor-card"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="chip blue sponsor-badge" style="transform: rotate(1.8deg);">提供サービス</span>
+        <div class="sponsor-logo-box">
+          <img src="assets/sponsors/logo_B4.png" alt="弁護士ドットコム ロゴ" loading="lazy" decoding="async">
+        </div>
+        <div class="sponsor-name-row">
+          <span class="sponsor-label-small">サービス / 企業名</span>
+          <div class="sponsor-name">弁護士ドットコム（弁護士ドットコム株式会社）</div>
+        </div>
+        <div class="sponsor-hp-bar">
+          <span class="sponsor-hp-text">ホームページ: https://www.bengo4.com/</span>
+          <span class="sponsor-hp-icon" aria-hidden="true">↗</span>
+        </div>
+      </a>
+
+      <!-- 3. クラウドサイン -->
+      <a
+        href="https://www.cloudsign.jp/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
+        class="sponsor-card"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="chip red sponsor-badge" style="transform: rotate(-1.8deg);">提供サービス</span>
+        <div class="sponsor-logo-box">
+          <img src="assets/sponsors/logo_cloudsign.png" alt="クラウドサイン ロゴ" loading="lazy" decoding="async">
+        </div>
+        <div class="sponsor-name-row">
+          <span class="sponsor-label-small">サービス / 企業名</span>
+          <div class="sponsor-name">クラウドサイン（弁護士ドットコム株式会社）</div>
+        </div>
+        <div class="sponsor-hp-bar">
+          <span class="sponsor-hp-text">ホームページ: https://www.cloudsign.jp/</span>
+          <span class="sponsor-hp-icon" aria-hidden="true">↗</span>
+        </div>
+      </a>
+
+      <!-- 4. LegalBrain エージェント -->
+      <a
+        href="https://legalbrain.com/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
+        class="sponsor-card"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="chip blue sponsor-badge" style="transform: rotate(1.5deg);">提供サービス</span>
+        <div class="sponsor-logo-box">
+          <img src="assets/sponsors/logo_LBA.png" alt="LegalBrain エージェント ロゴ" loading="lazy" decoding="async">
+        </div>
+        <div class="sponsor-name-row">
+          <span class="sponsor-label-small">サービス / 企業名</span>
+          <div class="sponsor-name">LegalBrain エージェント（弁護士ドットコム株式会社）</div>
+        </div>
+        <div class="sponsor-hp-bar">
+          <span class="sponsor-hp-text">ホームページ: https://legalbrain.com/</span>
+          <span class="sponsor-hp-icon" aria-hidden="true">↗</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- フッター（高専祭HP準拠） -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="tape yellow footer-title num" style="transform: rotate(-1.5deg);">
+        61st SUZUKA KOSEN FESTIVAL
+      </p>
+
+      <div class="footer-actions">
+        <button id="btnShare" class="btn-share-collage" type="button">
+          <span>📤 このゲーム集を友達にシェアする</span>
+        </button>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://www.snct-fes.info/" target="_blank" rel="noopener noreferrer">
+          第61回鈴鹿高専祭 公式HP ↗
+        </a>
+        <a href="https://www.snct-fes.info/sponsors/" target="_blank" rel="noopener noreferrer">
+          協賛企業一覧 ↗
         </a>
       </div>
-    </section>
 
-    <!-- フッター -->
-    <footer>
-      <div class="booth-info">
-        🎪 <strong>リアル展示ブース案内</strong><br>
-        校内展示ブースでは大画面での実機プレイ・対戦も実施中！
-      </div>
-
-      <button id="btnShare" class="btn-share" type="button">
-        <span>📤 高専祭ゲームをシェア・友達に教える</span>
-      </button>
-
-      <p class="notes">
+      <p class="footer-notes">
         推奨環境: iOS Safari / Android Chrome（スマートフォン縦画面推奨）
       </p>
 
-      <div class="copyright">
-        &copy; 2026 鈴鹿高専祭 SNCT Games
-      </div>
-    </footer>
-  </div>
+      <p class="copyright">
+        第61回鈴鹿高専祭「collage」実行委員会 / SNCT Games
+      </p>
+    </div>
+  </footer>
 
   <script>
-    // Web Share API ＋ X共有フォールバック
     const btnShare = document.getElementById('btnShare');
     if (btnShare) {
       btnShare.addEventListener('click', async () => {
         const shareData = {
-          title: 'SNCT Games | 鈴鹿高専祭2026 公式ブラウザゲーム',
+          title: 'SNCT Games | 第61回鈴鹿高専祭「collage」ゲーム集',
           text: '鈴鹿高専祭のブラウザゲーム「SNCT Games」で遊んでるよ！スマホですぐ遊べるオリジナルゲーム🎮 #鈴鹿高専祭 #SNCTGames',
           url: 'https://snct-games.vercel.app'
         };
@@ -655,10 +1077,9 @@
           try {
             await navigator.share(shareData);
           } catch (err) {
-            // ユーザーによるキャンセル等は無視
+            // キャンセル時は何もしない
           }
         } else {
-          // PCや非対応環境向けにX共有画面を開く
           const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}`;
           window.open(twitterUrl, '_blank', 'noopener,noreferrer');
         }
