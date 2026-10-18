@@ -442,20 +442,14 @@
       box-shadow: 2px 2px 0 var(--ink);
     }
 
-    /* カード左上の角テープ */
-    .corner-tape {
+    /* カード左上のジャンルテープラベル */
+    .game-badge {
       position: absolute;
-      top: -10px;
+      top: -12px;
       left: 14px;
-      width: 76px;
-      height: 20px;
-      transform: rotate(-4deg);
-      filter: url(#tape-edge);
-      pointer-events: none;
+      font-size: 11.5px;
+      padding: 3px 14px;
     }
-    .corner-tape.yellow { background: var(--yellow); }
-    .corner-tape.red { background: var(--red); }
-    .corner-tape.blue { background: var(--blue); }
 
     .game-top {
       display: flex;
@@ -796,7 +790,7 @@
     <div class="games-list">
       <!-- ゲーム1: 高専ダッシュ！ -->
       <article class="game-card tilt-left">
-        <div class="corner-tape yellow" aria-hidden="true"></div>
+        <span class="tape yellow game-badge" style="transform: rotate(-2.5deg);">アクション</span>
         <div class="game-top">
           <div class="game-icon-frame">
             <img src="assets/icons/dash-icon.png" alt="高専ダッシュ！" width="64" height="64" loading="eager" decoding="async">
@@ -818,7 +812,7 @@
 
       <!-- ゲーム2: 暇つぶしシューティング -->
       <article class="game-card tilt-right">
-        <div class="corner-tape red" aria-hidden="true"></div>
+        <span class="tape red game-badge" style="transform: rotate(-2deg);">シューティング</span>
         <div class="game-top">
           <div class="game-icon-frame" style="transform: rotate(2deg);">
             <img src="assets/icons/shooter-icon.png" alt="暇つぶしシューティング" width="64" height="64" loading="eager" decoding="async">
