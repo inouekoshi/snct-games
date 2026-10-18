@@ -580,16 +580,17 @@
       object-fit: contain;
     }
 
-    /* 中段：提供プロダクト格納エリア */
+    /* 中段：提供プロダクト格納エリア（スマホ：タブ＋横スワイプカルーセル／PC：3列グリッド） */
     .sponsor-products-area {
       background: var(--paper);
-      padding: 16px 14px 18px;
+      padding: 16px 14px 16px;
+      overflow: hidden;
     }
     .sponsor-products-head {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .sponsor-products-head::before,
     .sponsor-products-head::after {
@@ -605,33 +606,81 @@
       white-space: nowrap;
     }
 
-    .sponsors-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    /* スマホ用：プロダクト切り替えタブ */
+    .sponsor-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .sponsor-tab {
+      appearance: none;
+      background: #ffffff;
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      box-shadow: 2px 2px 0 var(--ink);
+      padding: 7px 4px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1.2;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+    }
+    .sponsor-tab.is-active {
+      background: var(--blue);
+      color: #ffffff;
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .sponsor-tab[data-accent="red"].is-active {
+      background: var(--red);
+      color: #ffffff;
     }
 
-    /* 各プロダクトの札（スマホでは2段グリッドの横長コンパクト札、PCでは3列カード） */
+    /* スマホ：横スワイプ（scroll-snap）カルーセル */
+    .sponsors-list {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin: 0 -14px;
+      padding: 2px 22px 6px;
+    }
+    .sponsors-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* 各プロダクトの札 */
     .sponsor-card {
+      flex: 0 0 88%;
+      max-width: 88%;
+      scroll-snap-align: center;
       position: relative;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      grid-template-areas:
-        "logo pill"
-        "body body";
-      align-items: center;
-      gap: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
       background: #ffffff;
       border: 2px solid var(--ink);
-      border-left: 6px solid var(--blue);
-      box-shadow: 3px 3px 0 var(--ink);
-      padding: 12px 14px;
+      border-top: 6px solid var(--blue);
+      box-shadow: 4px 4px 0 var(--ink);
+      padding: 14px 14px 12px;
       color: var(--ink);
       text-decoration: none;
       transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
     .sponsor-card.accent-red {
-      border-left-color: var(--red);
+      border-top-color: var(--red);
     }
     .sponsor-card:active {
       transform: translate(2px, 2px);
@@ -639,12 +688,13 @@
     }
 
     .sponsor-logo-box {
-      grid-area: logo;
-      height: 32px;
-      max-width: 175px;
+      height: 46px;
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
+      padding: 2px 8px 10px;
+      border-bottom: 1.5px dashed #dcdcdc;
     }
     .sponsor-logo-box img {
       max-width: 100%;
@@ -653,39 +703,16 @@
       height: auto;
       object-fit: contain;
     }
-    .sponsor-url-pill {
-      grid-area: pill;
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--paper);
-      border: 1.5px solid var(--ink);
-      padding: 3px 8px;
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--blue);
-      white-space: nowrap;
-    }
-    .sponsor-url-pill-prefix {
-      display: none;
-    }
-    .sponsor-url-pill-icon {
-      color: var(--ink);
-      font-weight: 900;
-    }
 
-    /* 2段目：プロダクト名＋コンパクトな説明文 */
+    /* プロダクト名＋コンパクトな説明文 */
     .sponsor-card-body {
-      grid-area: body;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      padding-top: 8px;
-      border-top: 1.5px dashed #dcdcdc;
+      gap: 5px;
+      flex: 1;
     }
     .sponsor-name {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 900;
       color: var(--ink);
       line-height: 1.3;
@@ -695,6 +722,77 @@
       font-weight: 500;
       color: #2b2b2b;
       line-height: 1.55;
+    }
+
+    .sponsor-url-pill {
+      margin-top: auto;
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
+      padding: 6px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--blue);
+      white-space: nowrap;
+    }
+    .sponsor-url-pill-icon {
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    /* スマホ用：カルーセル下部ナビ（前後ボタン＋ドット） */
+    .sponsor-carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .sponsor-nav-btn {
+      appearance: none;
+      width: 28px;
+      height: 28px;
+      background: #ffffff;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      box-shadow: 2px 2px 0 var(--ink);
+      font-size: 11px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .sponsor-nav-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+    .sponsor-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sponsor-dot {
+      appearance: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1.5px solid var(--ink);
+      padding: 0;
+      cursor: pointer;
+      transition: transform 0.12s ease, background-color 0.12s ease;
+    }
+    .sponsor-dot.is-active {
+      background: var(--blue);
+      transform: scale(1.25);
+    }
+    .sponsor-dot[data-accent="red"].is-active {
+      background: var(--red);
     }
 
     /* 最下部：弁護士ドットコム株式会社 コーポレートリンクバー */
@@ -883,48 +981,36 @@
       .sponsor-products-head {
         margin-bottom: 16px;
       }
+      .sponsor-tabs,
+      .sponsor-carousel-nav {
+        display: none;
+      }
       .sponsors-list {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 16px;
         align-items: stretch;
+        overflow: visible;
+        margin: 0;
+        padding: 0;
       }
       .sponsor-card {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        flex: none;
+        max-width: 100%;
         gap: 12px;
-        border-left: 2px solid var(--ink);
-        border-top: 6px solid var(--blue);
         box-shadow: 4px 4px 0 var(--ink);
         padding: 16px 14px 14px;
       }
-      .sponsor-card.accent-red {
-        border-left-color: var(--ink);
-        border-top-color: var(--red);
-      }
       .sponsor-logo-box {
         height: 52px;
-        max-width: 100%;
-        justify-content: center;
         padding: 4px 8px 12px;
-        border-bottom: 1.5px dashed #dcdcdc;
       }
       .sponsor-card-body {
-        padding-top: 0;
-        border-top: none;
-        flex: 1;
         gap: 6px;
       }
       .sponsor-url-pill {
-        margin-top: auto;
-        width: 100%;
-        justify-content: space-between;
         padding: 6px 10px;
         font-size: 11px;
-      }
-      .sponsor-url-pill-prefix {
-        display: inline;
       }
       .sponsor-corp-footer {
         padding: 16px 20px;
@@ -1311,13 +1397,26 @@
         </a>
       </div>
 
-      <!-- 子階層：提供プロダクト・サービス（3つの札） -->
+      <!-- 子階層：提供プロダクト・サービス（スマホ：タブ切り替え＋横スワイプ／PC：3列グリッド） -->
       <div class="sponsor-products-area">
         <div class="sponsor-products-head">
           <span class="sponsor-products-title">提供プロダクト・サービス</span>
         </div>
 
-        <div class="sponsors-list">
+        <!-- スマホ用：プロダクト切り替えタブ -->
+        <div class="sponsor-tabs" role="tablist" aria-label="提供プロダクト切り替え">
+          <button type="button" class="sponsor-tab is-active" data-index="0" data-accent="blue" role="tab" aria-selected="true">
+            弁護士ドットコム
+          </button>
+          <button type="button" class="sponsor-tab" data-index="1" data-accent="red" role="tab" aria-selected="false">
+            クラウドサイン
+          </button>
+          <button type="button" class="sponsor-tab" data-index="2" data-accent="blue" role="tab" aria-selected="false">
+            LegalBrain
+          </button>
+        </div>
+
+        <div id="sponsorsCarousel" class="sponsors-list">
           <!-- 1. 弁護士ドットコム -->
           <a
             href="https://www.bengo4.com/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
@@ -1335,7 +1434,7 @@
               </p>
             </div>
             <div class="sponsor-url-pill">
-              <span><span class="sponsor-url-pill-prefix">https://www.</span>bengo4.com</span>
+              <span>https://www.bengo4.com/</span>
               <span class="sponsor-url-pill-icon" aria-hidden="true">↗</span>
             </div>
           </a>
@@ -1357,7 +1456,7 @@
               </p>
             </div>
             <div class="sponsor-url-pill">
-              <span><span class="sponsor-url-pill-prefix">https://www.</span>cloudsign.jp</span>
+              <span>https://www.cloudsign.jp/</span>
               <span class="sponsor-url-pill-icon" aria-hidden="true">↗</span>
             </div>
           </a>
@@ -1379,10 +1478,21 @@
               </p>
             </div>
             <div class="sponsor-url-pill">
-              <span><span class="sponsor-url-pill-prefix">https://</span>legalbrain.com</span>
+              <span>https://legalbrain.com/</span>
               <span class="sponsor-url-pill-icon" aria-hidden="true">↗</span>
             </div>
           </a>
+        </div>
+
+        <!-- スマホ用：前後ボタン＋ドットインジケーター -->
+        <div class="sponsor-carousel-nav" aria-label="カルーセル操作">
+          <button type="button" id="sponsorPrev" class="sponsor-nav-btn" aria-label="前のプロダクト">◀</button>
+          <div class="sponsor-dots">
+            <button type="button" class="sponsor-dot is-active" data-index="0" data-accent="blue" aria-label="1. 弁護士ドットコム"></button>
+            <button type="button" class="sponsor-dot" data-index="1" data-accent="red" aria-label="2. クラウドサイン"></button>
+            <button type="button" class="sponsor-dot" data-index="2" data-accent="blue" aria-label="3. LegalBrain エージェント"></button>
+          </div>
+          <button type="button" id="sponsorNext" class="sponsor-nav-btn" aria-label="次のプロダクト">▶</button>
         </div>
       </div>
 
@@ -1430,6 +1540,82 @@
   </footer>
 
   <script>
+    // スポンサープロダクト：スマホ用カルーセル＆タブ連動
+    (function () {
+      const carousel = document.getElementById('sponsorsCarousel');
+      const tabs = Array.from(document.querySelectorAll('.sponsor-tab'));
+      const dots = Array.from(document.querySelectorAll('.sponsor-dot'));
+      const prevBtn = document.getElementById('sponsorPrev');
+      const nextBtn = document.getElementById('sponsorNext');
+      if (!carousel || tabs.length === 0) return;
+
+      const cards = Array.from(carousel.querySelectorAll('.sponsor-card'));
+      let currentIndex = 0;
+
+      function setActiveUI(index) {
+        currentIndex = index;
+        tabs.forEach((tab, i) => {
+          const active = i === index;
+          tab.classList.toggle('is-active', active);
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('is-active', i === index);
+        });
+      }
+
+      function scrollToCard(index) {
+        const clamped = (index + cards.length) % cards.length;
+        const target = cards[clamped];
+        if (!target) return;
+        const left = target.offsetLeft - (carousel.clientWidth - target.offsetWidth) / 2;
+        carousel.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+        setActiveUI(clamped);
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          scrollToCard(Number(tab.dataset.index || 0));
+        });
+      });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          scrollToCard(Number(dot.dataset.index || 0));
+        });
+      });
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => scrollToCard(currentIndex - 1));
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => scrollToCard(currentIndex + 1));
+      }
+
+      let ticking = false;
+      carousel.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          const center = carousel.scrollLeft + carousel.clientWidth / 2;
+          let bestIndex = 0;
+          let bestDist = Infinity;
+          cards.forEach((card, i) => {
+            const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+            const dist = Math.abs(cardCenter - center);
+            if (dist < bestDist) {
+              bestDist = dist;
+              bestIndex = i;
+            }
+          });
+          if (bestIndex !== currentIndex) {
+            setActiveUI(bestIndex);
+          }
+          ticking = false;
+        });
+      }, { passive: true });
+    })();
+
     const btnShare = document.getElementById('btnShare');
     if (btnShare) {
       btnShare.addEventListener('click', async () => {
