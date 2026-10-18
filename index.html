@@ -744,57 +744,6 @@
       font-weight: 900;
     }
 
-    /* スマホ用：カルーセル下部ナビ（前後ボタン＋ドット） */
-    .sponsor-carousel-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    .sponsor-nav-btn {
-      appearance: none;
-      width: 28px;
-      height: 28px;
-      background: #ffffff;
-      color: var(--ink);
-      border: 1.5px solid var(--ink);
-      box-shadow: 2px 2px 0 var(--ink);
-      font-size: 11px;
-      font-weight: 900;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .sponsor-nav-btn:active {
-      transform: translate(1px, 1px);
-      box-shadow: 1px 1px 0 var(--ink);
-    }
-    .sponsor-dots {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .sponsor-dot {
-      appearance: none;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 1.5px solid var(--ink);
-      padding: 0;
-      cursor: pointer;
-      transition: transform 0.12s ease, background-color 0.12s ease;
-    }
-    .sponsor-dot.is-active {
-      background: var(--blue);
-      transform: scale(1.25);
-    }
-    .sponsor-dot[data-accent="red"].is-active {
-      background: var(--red);
-    }
-
     /* 最下部：弁護士ドットコム株式会社 コーポレートリンクバー */
     .sponsor-corp-footer {
       background: #ffffff;
@@ -981,8 +930,7 @@
       .sponsor-products-head {
         margin-bottom: 16px;
       }
-      .sponsor-tabs,
-      .sponsor-carousel-nav {
+      .sponsor-tabs {
         display: none;
       }
       .sponsors-list {
@@ -1483,17 +1431,6 @@
             </div>
           </a>
         </div>
-
-        <!-- スマホ用：前後ボタン＋ドットインジケーター -->
-        <div class="sponsor-carousel-nav" aria-label="カルーセル操作">
-          <button type="button" id="sponsorPrev" class="sponsor-nav-btn" aria-label="前のプロダクト">◀</button>
-          <div class="sponsor-dots">
-            <button type="button" class="sponsor-dot is-active" data-index="0" data-accent="blue" aria-label="1. 弁護士ドットコム"></button>
-            <button type="button" class="sponsor-dot" data-index="1" data-accent="red" aria-label="2. クラウドサイン"></button>
-            <button type="button" class="sponsor-dot" data-index="2" data-accent="blue" aria-label="3. LegalBrain エージェント"></button>
-          </div>
-          <button type="button" id="sponsorNext" class="sponsor-nav-btn" aria-label="次のプロダクト">▶</button>
-        </div>
       </div>
 
       <!-- 最下部：弁護士ドットコム株式会社 コーポレートリンク -->
@@ -1544,9 +1481,6 @@
     (function () {
       const carousel = document.getElementById('sponsorsCarousel');
       const tabs = Array.from(document.querySelectorAll('.sponsor-tab'));
-      const dots = Array.from(document.querySelectorAll('.sponsor-dot'));
-      const prevBtn = document.getElementById('sponsorPrev');
-      const nextBtn = document.getElementById('sponsorNext');
       if (!carousel || tabs.length === 0) return;
 
       const cards = Array.from(carousel.querySelectorAll('.sponsor-card'));
@@ -1558,9 +1492,6 @@
           const active = i === index;
           tab.classList.toggle('is-active', active);
           tab.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('is-active', i === index);
         });
       }
 
@@ -1578,19 +1509,6 @@
           scrollToCard(Number(tab.dataset.index || 0));
         });
       });
-
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          scrollToCard(Number(dot.dataset.index || 0));
-        });
-      });
-
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => scrollToCard(currentIndex - 1));
-      }
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => scrollToCard(currentIndex + 1));
-      }
 
       let ticking = false;
       carousel.addEventListener('scroll', () => {
