@@ -520,7 +520,73 @@
       z-index: 1;
     }
 
-    /* ===== スポンサーセクション（ロゴ → 企業名 → ホームページ） ===== */
+    /* ===== スポンサーセクション（親：企業名＆大ロゴ → 子：提供プロダクト札 → 下部：企業リンク） ===== */
+    .sponsor-hero {
+      text-align: center;
+      padding: 8px 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .sponsor-corp-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .sponsor-corp-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: #444;
+      letter-spacing: 0.08em;
+    }
+    .sponsor-corp-name {
+      font-size: clamp(24px, 6.5vw, 34px);
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+    }
+    .sponsor-corp-logo-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border: 2.5px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--yellow), 5px 5px 0 2px var(--ink);
+      padding: 10px 20px;
+      transition: transform 0.12s ease;
+    }
+    .sponsor-corp-logo-link img {
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .sponsor-products-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 6px 0 18px;
+    }
+    .sponsor-products-head::before,
+    .sponsor-products-head::after {
+      content: "";
+      flex: 1;
+      border-top: 2px dashed #bbb;
+    }
+    .sponsor-products-title {
+      font-size: 12.5px;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
     .sponsors-list {
       display: flex;
       flex-direction: column;
@@ -564,13 +630,13 @@
     /* 1段目：ロゴ表示枠 */
     .sponsor-logo-box {
       width: 100%;
-      height: 72px;
+      height: 68px;
       background: #ffffff;
       border: 1.5px dashed #cccccc;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 18px;
+      padding: 12px 16px;
     }
     .sponsor-logo-box img {
       max-width: 100%;
@@ -580,7 +646,7 @@
       object-fit: contain;
     }
 
-    /* 2段目：企業名・サービス名 */
+    /* 2段目：プロダクト・サービス名 */
     .sponsor-name-row {
       display: flex;
       flex-direction: column;
@@ -593,7 +659,7 @@
       letter-spacing: 0.04em;
     }
     .sponsor-name {
-      font-size: 15.5px;
+      font-size: 16px;
       font-weight: 900;
       color: var(--ink);
       line-height: 1.35;
@@ -623,6 +689,45 @@
       flex-shrink: 0;
       font-weight: 900;
       color: var(--ink);
+    }
+
+    /* 最下部：弁護士ドットコム株式会社 コーポレートリンク */
+    .sponsor-corp-footer {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+    }
+    .sponsor-corp-footer-link {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      padding: 12px 18px;
+      text-decoration: none;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .sponsor-corp-footer-link:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .sponsor-corp-footer-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sponsor-corp-footer-url {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--blue);
+      word-break: break-all;
     }
 
     /* ===== フッター（高専祭HP Footer.astro 準拠） ===== */
@@ -702,9 +807,16 @@
         transform: translate(-2px, -2px) rotate(0deg);
         box-shadow: 7px 7px 0 var(--ink);
       }
+      .sponsor-corp-logo-link:hover {
+        transform: translate(-2px, -2px);
+      }
       .sponsor-card:hover {
         transform: translate(-2px, -2px) rotate(0deg);
         box-shadow: 7px 7px 0 var(--ink);
+      }
+      .sponsor-corp-footer-link:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 var(--ink);
       }
       .btn-share-collage:hover {
         transform: rotate(0deg) scale(1.02);
@@ -748,11 +860,29 @@
         gap: 24px;
         align-items: stretch;
       }
+      .sponsor-corp-logo-link {
+        max-width: 500px;
+        padding: 14px 28px;
+      }
+      .sponsor-corp-logo-link img {
+        max-width: 420px;
+      }
       .sponsors-list {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 22px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
         align-items: stretch;
+      }
+      .sponsor-hp-bar {
+        font-size: 11px;
+        padding: 8px 10px;
+      }
+      .sponsor-hp-prefix {
+        display: none;
+      }
+      .sponsor-corp-footer-link {
+        max-width: 520px;
+        padding: 14px 24px;
       }
       .footer-actions {
         max-width: 360px;
@@ -869,29 +999,65 @@
         min-height: 52px;
         font-size: 16px;
       }
+      .sponsor-hero {
+        padding: 12px 0 32px;
+        gap: 18px;
+      }
+      .sponsor-corp-label {
+        font-size: 14px;
+      }
+      .sponsor-corp-name {
+        font-size: 36px;
+      }
+      .sponsor-corp-logo-link {
+        max-width: 580px;
+        padding: 18px 36px;
+      }
+      .sponsor-corp-logo-link img {
+        max-width: 480px;
+      }
+      .sponsor-products-head {
+        margin: 8px 0 24px;
+      }
+      .sponsor-products-title {
+        font-size: 14px;
+      }
       .sponsors-list {
-        gap: 28px;
+        gap: 24px;
       }
       .sponsor-card {
-        padding: 26px 22px 20px;
+        padding: 24px 20px 18px;
         box-shadow: 6px 6px 0 var(--ink);
       }
       .sponsor-badge {
-        font-size: 12.5px;
-        padding: 4px 16px;
+        font-size: 12px;
+        padding: 3.5px 15px;
       }
       .sponsor-logo-box {
-        height: 88px;
-        padding: 14px 24px;
+        height: 76px;
+        padding: 12px 18px;
       }
       .sponsor-label-small {
-        font-size: 11.5px;
+        font-size: 11px;
       }
       .sponsor-name {
         font-size: 17px;
       }
       .sponsor-hp-bar {
-        padding: 10px 14px;
+        padding: 9px 12px;
+        font-size: 12.5px;
+      }
+      .sponsor-corp-footer {
+        margin-top: 32px;
+      }
+      .sponsor-corp-footer-link {
+        max-width: 600px;
+        padding: 16px 26px;
+      }
+      .sponsor-corp-footer-title {
+        font-size: 15.5px;
+      }
+      .sponsor-corp-footer-url {
         font-size: 13px;
       }
       .site-footer {
@@ -1067,96 +1233,110 @@
     <div class="divider blue" style="transform: rotate(0.9deg) scaleX(1.05);"></div>
   </div>
 
-  <!-- スポンサーセクション（ロゴ → 企業名 → ホームページ） -->
+  <!-- スポンサーセクション（親：企業名＆大ロゴ → 子：提供プロダクト3札 → 下部：コーポレートリンク） -->
   <section class="section">
     <div class="sec-head">
       <h2 class="tape black sec-title num" style="transform: rotate(-1.2deg);">SPECIAL SPONSOR</h2>
-      <span class="sec-sub">特別協賛・提供サービス</span>
+      <span class="sec-sub">特別協賛</span>
+    </div>
+
+    <!-- 親階層：弁護士ドットコム株式会社（名前とロゴを大きく表示） -->
+    <div class="sponsor-hero">
+      <div class="sponsor-corp-head">
+        <span class="sponsor-corp-label">特別協賛企業</span>
+        <h3 class="sponsor-corp-name">弁護士ドットコム株式会社</h3>
+      </div>
+      <a
+        href="https://www.bengo4.com/corporate/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
+        class="sponsor-corp-logo-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="弁護士ドットコム株式会社 コーポレートサイト"
+      >
+        <img src="assets/sponsors/logo_bengo4-corpolate.png" alt="弁護士ドットコム株式会社 ロゴ" loading="lazy" decoding="async">
+      </a>
+    </div>
+
+    <!-- 子階層：提供プロダクト（3つの札） -->
+    <div class="sponsor-products-head">
+      <span class="sponsor-products-title">提供プロダクト・サービス</span>
     </div>
 
     <div class="sponsors-list">
-      <!-- 1. 弁護士ドットコム株式会社（コーポレート） -->
-      <a
-        href="https://www.bengo4.com/corporate/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
-        class="sponsor-card"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span class="tape yellow sponsor-badge" style="transform: rotate(-2.5deg);">特別協賛</span>
-        <div class="sponsor-logo-box">
-          <img src="assets/sponsors/logo_bengo4-corpolate.png" alt="弁護士ドットコム株式会社 ロゴ" loading="lazy" decoding="async">
-        </div>
-        <div class="sponsor-name-row">
-          <span class="sponsor-label-small">企業名</span>
-          <div class="sponsor-name">弁護士ドットコム株式会社</div>
-        </div>
-        <div class="sponsor-hp-bar">
-          <span class="sponsor-hp-text">ホームページ: https://www.bengo4.com/corporate/</span>
-          <span class="sponsor-hp-icon" aria-hidden="true">↗</span>
-        </div>
-      </a>
-
-      <!-- 2. 弁護士ドットコム（サービス） -->
+      <!-- 1. 弁護士ドットコム（サービス） -->
       <a
         href="https://www.bengo4.com/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
         class="sponsor-card"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="chip blue sponsor-badge" style="transform: rotate(1.8deg);">提供サービス</span>
+        <span class="chip blue sponsor-badge" style="transform: rotate(1.8deg);">提供プロダクト</span>
         <div class="sponsor-logo-box">
           <img src="assets/sponsors/logo_B4.png" alt="弁護士ドットコム ロゴ" loading="lazy" decoding="async">
         </div>
         <div class="sponsor-name-row">
-          <span class="sponsor-label-small">サービス / 企業名</span>
-          <div class="sponsor-name">弁護士ドットコム（弁護士ドットコム株式会社）</div>
+          <span class="sponsor-label-small">サービス名</span>
+          <div class="sponsor-name">弁護士ドットコム</div>
         </div>
         <div class="sponsor-hp-bar">
-          <span class="sponsor-hp-text">ホームページ: https://www.bengo4.com/</span>
+          <span class="sponsor-hp-text"><span class="sponsor-hp-prefix">ホームページ: </span>https://www.bengo4.com/</span>
           <span class="sponsor-hp-icon" aria-hidden="true">↗</span>
         </div>
       </a>
 
-      <!-- 3. クラウドサイン -->
+      <!-- 2. クラウドサイン -->
       <a
         href="https://www.cloudsign.jp/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
         class="sponsor-card"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="chip red sponsor-badge" style="transform: rotate(-1.8deg);">提供サービス</span>
+        <span class="chip red sponsor-badge" style="transform: rotate(-1.8deg);">提供プロダクト</span>
         <div class="sponsor-logo-box">
           <img src="assets/sponsors/logo_cloudsign.png" alt="クラウドサイン ロゴ" loading="lazy" decoding="async">
         </div>
         <div class="sponsor-name-row">
-          <span class="sponsor-label-small">サービス / 企業名</span>
-          <div class="sponsor-name">クラウドサイン（弁護士ドットコム株式会社）</div>
+          <span class="sponsor-label-small">サービス名</span>
+          <div class="sponsor-name">クラウドサイン</div>
         </div>
         <div class="sponsor-hp-bar">
-          <span class="sponsor-hp-text">ホームページ: https://www.cloudsign.jp/</span>
+          <span class="sponsor-hp-text"><span class="sponsor-hp-prefix">ホームページ: </span>https://www.cloudsign.jp/</span>
           <span class="sponsor-hp-icon" aria-hidden="true">↗</span>
         </div>
       </a>
 
-      <!-- 4. LegalBrain エージェント -->
+      <!-- 3. LegalBrain エージェント -->
       <a
         href="https://legalbrain.com/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
         class="sponsor-card"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="chip blue sponsor-badge" style="transform: rotate(1.5deg);">提供サービス</span>
+        <span class="chip blue sponsor-badge" style="transform: rotate(1.5deg);">提供プロダクト</span>
         <div class="sponsor-logo-box">
           <img src="assets/sponsors/logo_LBA.png" alt="LegalBrain エージェント ロゴ" loading="lazy" decoding="async">
         </div>
         <div class="sponsor-name-row">
-          <span class="sponsor-label-small">サービス / 企業名</span>
-          <div class="sponsor-name">LegalBrain エージェント（弁護士ドットコム株式会社）</div>
+          <span class="sponsor-label-small">サービス名</span>
+          <div class="sponsor-name">LegalBrain エージェント</div>
         </div>
         <div class="sponsor-hp-bar">
-          <span class="sponsor-hp-text">ホームページ: https://legalbrain.com/</span>
+          <span class="sponsor-hp-text"><span class="sponsor-hp-prefix">ホームページ: </span>https://legalbrain.com/</span>
           <span class="sponsor-hp-icon" aria-hidden="true">↗</span>
         </div>
+      </a>
+    </div>
+
+    <!-- 最下部：弁護士ドットコム株式会社 コーポレートリンク -->
+    <div class="sponsor-corp-footer">
+      <a
+        href="https://www.bengo4.com/corporate/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
+        class="sponsor-corp-footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="sponsor-corp-footer-title">弁護士ドットコム株式会社 コーポレートサイト</span>
+        <span class="sponsor-corp-footer-url">https://www.bengo4.com/corporate/ ↗</span>
       </a>
     </div>
   </section>
