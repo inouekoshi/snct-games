@@ -46,6 +46,7 @@
       --safe-top: env(safe-area-inset-top, 0px);
       --header-offset-sp: calc(var(--header-height-sp) + var(--safe-top));
       --content-sp: 520px;
+      --content-pc: 1040px;
     }
 
     * {
@@ -425,6 +426,9 @@
     .game-card {
       position: relative;
       z-index: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       background: #fff;
       border: 2px solid var(--ink);
       box-shadow: 5px 5px 0 var(--ink);
@@ -498,7 +502,8 @@
     }
 
     .game-cta-wrap {
-      margin-top: 16px;
+      margin-top: auto;
+      padding-top: 16px;
       text-align: center;
     }
     .game-play-btn {
@@ -527,6 +532,7 @@
       z-index: 0;
       display: flex;
       flex-direction: column;
+      height: 100%;
       gap: 12px;
       background: #fff;
       border: 2px solid var(--ink);
@@ -595,6 +601,7 @@
 
     /* 3段目：ホームページリンクバー */
     .sponsor-hp-bar {
+      margin-top: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -642,6 +649,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 12px;
     }
     .btn-share-collage {
@@ -683,6 +691,226 @@
     .copyright {
       font-size: 11px;
       opacity: 0.6;
+    }
+
+    /* ===== PC・マウス環境でのホバー演出 ===== */
+    @media (hover: hover) and (pointer: fine) {
+      .header-hp-link:hover {
+        transform: rotate(0deg) scale(1.04);
+      }
+      .game-card:hover {
+        transform: translate(-2px, -2px) rotate(0deg);
+        box-shadow: 7px 7px 0 var(--ink);
+      }
+      .sponsor-card:hover {
+        transform: translate(-2px, -2px) rotate(0deg);
+        box-shadow: 7px 7px 0 var(--ink);
+      }
+      .btn-share-collage:hover {
+        transform: rotate(0deg) scale(1.02);
+      }
+      .footer-links a:hover {
+        color: var(--yellow);
+      }
+    }
+
+    /* ===== レスポンシブ対応：スマホ横画面・タブレット・PC横画面（680px〜） ===== */
+    @media (min-width: 680px) {
+      .header-inner,
+      .hero,
+      .section,
+      .footer-inner {
+        max-width: var(--content-pc);
+      }
+      .header-inner {
+        padding-left: max(28px, env(safe-area-inset-left, 0px));
+        padding-right: max(28px, env(safe-area-inset-right, 0px));
+      }
+      .hero {
+        padding: 36px 28px 28px;
+      }
+      .hero-pattern-left {
+        left: 8px;
+        width: 58px;
+        height: 58px;
+      }
+      .hero-pattern-right {
+        right: 8px;
+        width: 64px;
+        height: 54px;
+      }
+      .section {
+        padding: 32px 28px;
+      }
+      .games-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        align-items: stretch;
+      }
+      .sponsors-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+        align-items: stretch;
+      }
+      .footer-actions {
+        max-width: 360px;
+      }
+    }
+
+    /* ===== レスポンシブ対応：パソコン横画面・大型タブレット（960px〜） ===== */
+    @media (min-width: 960px) {
+      :root {
+        --header-height-sp: 68px;
+      }
+      .header-inner {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .logo-sp {
+        font-size: 16px;
+      }
+      .header-hp-link {
+        font-size: 13px;
+        padding: 7px 16px;
+      }
+      .hero {
+        padding: 48px 40px 40px;
+      }
+      .hero-pattern-left {
+        top: 24px;
+        left: 24px;
+        width: 72px;
+        height: 72px;
+      }
+      .hero-pattern-right {
+        bottom: 20px;
+        right: 24px;
+        width: 80px;
+        height: 68px;
+      }
+      .hero-banner {
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
+      .hero-title {
+        font-size: clamp(68px, 7vw, 92px);
+        text-shadow: 4px 4px 0 var(--yellow);
+      }
+      .hero-star-1 {
+        font-size: 28px;
+        top: -14px;
+        right: -30px;
+      }
+      .hero-star-2 {
+        font-size: 24px;
+        bottom: -6px;
+        left: -28px;
+      }
+      .hero-name {
+        font-size: 20px;
+        margin-top: 8px;
+      }
+      .hero-date {
+        margin-top: 18px;
+      }
+      .hero-date .year {
+        font-size: 24px;
+      }
+      .hero-date .day-block {
+        font-size: 42px;
+      }
+      .hero-date .sep {
+        font-size: 22px;
+      }
+      .section {
+        padding: 42px 40px;
+      }
+      .sec-head {
+        margin-bottom: 28px;
+      }
+      .sec-title {
+        font-size: 22px;
+        padding: 7px 24px;
+      }
+      .sec-sub {
+        font-size: 14px;
+      }
+      .games-list {
+        gap: 32px;
+      }
+      .game-card {
+        padding: 28px 24px 24px;
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+      .game-badge {
+        font-size: 12.5px;
+        padding: 4px 16px;
+      }
+      .game-icon-frame {
+        width: 76px;
+        height: 76px;
+      }
+      .game-title {
+        font-size: 24px;
+      }
+      .game-sub {
+        font-size: 13.5px;
+      }
+      .game-desc {
+        font-size: 14.5px;
+        margin-top: 16px;
+      }
+      .game-cta-wrap {
+        padding-top: 20px;
+      }
+      .game-play-btn {
+        min-height: 52px;
+        font-size: 16px;
+      }
+      .sponsors-list {
+        gap: 28px;
+      }
+      .sponsor-card {
+        padding: 26px 22px 20px;
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+      .sponsor-badge {
+        font-size: 12.5px;
+        padding: 4px 16px;
+      }
+      .sponsor-logo-box {
+        height: 88px;
+        padding: 14px 24px;
+      }
+      .sponsor-label-small {
+        font-size: 11.5px;
+      }
+      .sponsor-name {
+        font-size: 17px;
+      }
+      .sponsor-hp-bar {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+      .site-footer {
+        padding: 48px 40px calc(44px + env(safe-area-inset-bottom, 0px));
+      }
+      .footer-title {
+        font-size: 15px;
+      }
+      .btn-share-collage {
+        font-size: 14.5px;
+        min-height: 50px;
+      }
+      .footer-links {
+        font-size: 13.5px;
+        gap: 24px;
+      }
+      .copyright {
+        font-size: 12px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -744,10 +972,10 @@
   <!-- ヒーローセクション -->
   <section class="hero">
     <svg class="hero-pattern-left" aria-hidden="true">
-      <rect width="48" height="48" fill="url(#dots-blue)" filter="url(#torn-edge)"></rect>
+      <rect width="100%" height="100%" fill="url(#dots-blue)" filter="url(#torn-edge)"></rect>
     </svg>
     <svg class="hero-pattern-right" aria-hidden="true">
-      <rect width="52" height="44" fill="url(#stripe-red)" filter="url(#torn-edge)"></rect>
+      <rect width="100%" height="100%" fill="url(#stripe-red)" filter="url(#torn-edge)"></rect>
     </svg>
 
     <div class="hero-fg">
