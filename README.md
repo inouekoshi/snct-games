@@ -1,18 +1,18 @@
 # SNCT Games
 
-鈴鹿高専祭（2026-11-03）で遊べるブラウザゲームの公式ポータルページです。スマートフォンで開く前提で作られており、パンフレットにはこのページのURLとQRコードを載せています。
+第61回鈴鹿高専祭「collage」（2026年10月31日・11月1日）で遊べるブラウザゲームの公式ポータルページです。スマートフォンで開く前提で作られており、高専祭の公式ホームページ（[snct-fes.info](https://www.snct-fes.info/)）と同じ「collage 2026」のデザインシステムを採用しています。パンフレットにはこのページのURLとQRコードを載せています。
 
 - 公開URL: https://snct-games.vercel.app
 - QRコード: [qr/snct-games-qr.svg](qr/snct-games-qr.svg)（印刷用）、[qr/snct-games-qr.png](qr/snct-games-qr.png)
 
 ## 掲載しているゲーム
 
-| ゲーム | ジャンル / 内容 | URL | リポジトリ |
+| ゲーム | ジャンル / ステージ数 | URL | リポジトリ |
 |---|---|---|---|
-| 高専ダッシュ！ | タイムアタック・アクション（鈴鹿高専5学科テーマ） | https://kosendash.vercel.app | [snct-dash](https://github.com/inouekoshi/snct-dash) |
-| 暇つぶしシューティング | 縦スクロールSTG（全8ステージ・ランキング） | https://casual-games-six.vercel.app | [snct-shooter](https://github.com/inouekoshi/snct-shooter) |
+| 高専ダッシュ！ | アクション（全5ステージ・5学科テーマのタイムアタック） | https://kosendash.vercel.app | [snct-dash](https://github.com/inouekoshi/snct-dash) |
+| 暇つぶしシューティング | シューティング（全8ステージ＋高難度EXTRAモード） | https://casual-games-six.vercel.app | [snct-shooter](https://github.com/inouekoshi/snct-shooter) |
 
-## 協賛企業・提供サービス（SPONSORS）
+## 特別協賛・提供サービス（SPECIAL SPONSOR）
 
 各枠は「ロゴ → 企業名（サービス名） → ホームページ」の縦並びカード形式で表示しています。
 
