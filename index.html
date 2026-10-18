@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
   <title>SNCT Games | 第61回鈴鹿高専祭「collage」ブラウザゲーム集</title>
-  <meta name="description" content="第61回鈴鹿高専祭「collage」（2026.10/31-11/1）で遊べるブラウザゲーム集！インストール不要・スマホですぐ遊べます。">
+  <meta name="description" content="第61回鈴鹿高専祭「collage」で遊べるブラウザゲーム集。">
 
   <!-- OGP & SNS -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://snct-games.vercel.app">
   <meta property="og:title" content="SNCT Games | 第61回鈴鹿高専祭「collage」ブラウザゲーム集">
-  <meta property="og:description" content="インストール不要・スマホですぐ遊べる！鈴鹿高専祭オリジナルブラウザゲーム集。">
+  <meta property="og:description" content="第61回鈴鹿高専祭「collage」で遊べるブラウザゲーム集。">
   <meta property="og:image" content="https://snct-games.vercel.app/qr/snct-games-qr.png">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -392,14 +392,6 @@
     .hero-date .day.sat { color: var(--blue); }
     .hero-date .day.sun { color: var(--red); }
 
-    .hero-chips {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
     /* ===== セクション共通 ===== */
     .section {
       max-width: var(--content-sp);
@@ -465,14 +457,6 @@
     .corner-tape.red { background: var(--red); }
     .corner-tape.blue { background: var(--blue); }
 
-    .game-labels {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
     .game-top {
       display: flex;
       align-items: center;
@@ -517,22 +501,6 @@
       color: var(--ink);
       line-height: 1.65;
       margin-top: 12px;
-    }
-
-    .game-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
-      list-style: none;
-    }
-    .game-tag-item {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      background: #f3ebd9;
-      border: 1.5px solid var(--ink);
-      color: var(--ink);
     }
 
     .game-cta-wrap {
@@ -653,30 +621,6 @@
     .sponsor-hp-icon {
       flex-shrink: 0;
       font-weight: 900;
-      color: var(--ink);
-    }
-
-    /* ===== 会場案内カード（クラフト紙テクスチャ） ===== */
-    .notice-card {
-      position: relative;
-      background: #f3ebd9;
-      border: 2px solid var(--ink);
-      box-shadow: 4px 4px 0 var(--ink);
-      padding: 16px;
-      transform: rotate(-0.5deg);
-      margin-top: 6px;
-    }
-    .notice-title {
-      font-size: 14px;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-    .notice-text {
-      font-size: 12.5px;
-      line-height: 1.6;
       color: var(--ink);
     }
 
@@ -835,12 +779,6 @@
         <span class="sep">・</span>
         <span class="day-block">11/1<span class="day sun">SUN</span></span>
       </p>
-
-      <div class="hero-chips">
-        <span class="chip blue" style="transform: rotate(-2deg);">スマホで今すぐ遊べる</span>
-        <span class="chip red" style="transform: rotate(1.5deg);">インストール不要</span>
-        <span class="chip yellow" style="transform: rotate(-1.5deg);">完全無料</span>
-      </div>
     </div>
   </section>
 
@@ -853,17 +791,12 @@
   <main class="section">
     <div class="sec-head">
       <h2 class="tape black sec-title num" style="transform: rotate(-1.5deg);">GAMES</h2>
-      <span class="sec-sub">タップしてゲーム起動 ▶</span>
     </div>
 
     <div class="games-list">
       <!-- ゲーム1: 高専ダッシュ！ -->
       <article class="game-card tilt-left">
         <div class="corner-tape yellow" aria-hidden="true"></div>
-        <div class="game-labels">
-          <span class="chip blue" style="transform: rotate(-1.5deg);">タイムアタック</span>
-          <span class="chip red" style="transform: rotate(1.2deg);">高専生・受験生におすすめ</span>
-        </div>
         <div class="game-top">
           <div class="game-icon-frame">
             <img src="assets/icons/dash-icon.png" alt="高専ダッシュ！" width="64" height="64" loading="eager" decoding="async">
@@ -874,16 +807,11 @@
           </div>
         </div>
         <p class="game-desc">
-          鈴鹿高専の5学科をテーマにしたハイスピード障害物アクション！学科ごとの特殊ギミックを乗り越えて最速クリアを目指せ！
+          鈴鹿高専の5学科をテーマにしたタイムアタック型のステージクリアゲーム。
         </p>
-        <ul class="game-tags">
-          <li class="game-tag-item">#鈴鹿高専5学科</li>
-          <li class="game-tag-item">#1プレイ約2分</li>
-          <li class="game-tag-item">#タイムアタック</li>
-        </ul>
         <div class="game-cta-wrap">
           <a href="https://kosendash.vercel.app" class="btn yellow game-play-btn" style="transform: rotate(-0.8deg);">
-            <span>あそぶ ▶ (無料)</span>
+            <span>あそぶ ▶</span>
           </a>
         </div>
       </article>
@@ -891,44 +819,24 @@
       <!-- ゲーム2: 暇つぶしシューティング -->
       <article class="game-card tilt-right">
         <div class="corner-tape red" aria-hidden="true"></div>
-        <div class="game-labels">
-          <span class="chip blue" style="transform: rotate(1.4deg);">縦スクロールSTG</span>
-          <span class="chip red" style="transform: rotate(-1.3deg);">待ち時間にサクッと爽快</span>
-        </div>
         <div class="game-top">
           <div class="game-icon-frame" style="transform: rotate(2deg);">
             <img src="assets/icons/shooter-icon.png" alt="暇つぶしシューティング" width="64" height="64" loading="eager" decoding="async">
           </div>
           <div class="game-info">
             <h3 class="game-title">暇つぶしシューティング</h3>
-            <p class="game-sub">全8ステージ・オンラインランキング対応</p>
+            <p class="game-sub">全8ステージ・ランキング対応</p>
           </div>
         </div>
         <p class="game-desc">
-          指一本で操作できる縦スクロールシューティング！全8ステージを攻略してハイスコアランキングに名前を刻もう！
+          指一本で操作できる縦スクロールシューティング。全8ステージ、ランキング付き。
         </p>
-        <ul class="game-tags">
-          <li class="game-tag-item">#指1本かんたん操作</li>
-          <li class="game-tag-item">#全8ステージ</li>
-          <li class="game-tag-item">#ランキング付き</li>
-        </ul>
         <div class="game-cta-wrap">
           <a href="https://casual-games-six.vercel.app" class="btn yellow game-play-btn" style="transform: rotate(0.8deg);">
-            <span>あそぶ ▶ (無料)</span>
+            <span>あそぶ ▶</span>
           </a>
         </div>
       </article>
-
-      <!-- 展示・案内メモ -->
-      <div class="notice-card">
-        <p class="notice-title">
-          <span class="star" style="color: var(--red);">★</span>
-          <span>高専祭の待ち時間やキャンパス巡りのお供に！</span>
-        </p>
-        <p class="notice-text">
-          どちらもスマートフォンの縦画面でそのまま遊べます。高専祭の企画・展示・屋台の詳細は上部の「高専祭HPへ ↗」からチェックできます。
-        </p>
-      </div>
     </div>
   </main>
 
@@ -1040,7 +948,7 @@
 
       <div class="footer-actions">
         <button id="btnShare" class="btn-share-collage" type="button">
-          <span>📤 このゲーム集を友達にシェアする</span>
+          <span>📤 このページをシェアする</span>
         </button>
       </div>
 
@@ -1054,7 +962,7 @@
       </div>
 
       <p class="footer-notes">
-        推奨環境: iOS Safari / Android Chrome（スマートフォン縦画面推奨）
+        スマートフォンでの縦画面プレイがおすすめです
       </p>
 
       <p class="copyright">
@@ -1069,7 +977,7 @@
       btnShare.addEventListener('click', async () => {
         const shareData = {
           title: 'SNCT Games | 第61回鈴鹿高専祭「collage」ゲーム集',
-          text: '鈴鹿高専祭のブラウザゲーム「SNCT Games」で遊んでるよ！スマホですぐ遊べるオリジナルゲーム🎮 #鈴鹿高専祭 #SNCTGames',
+          text: '第61回鈴鹿高専祭「collage」のブラウザゲーム集「SNCT Games」',
           url: 'https://snct-games.vercel.app'
         };
 
