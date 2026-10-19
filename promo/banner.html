@@ -70,6 +70,21 @@
   }
   .shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
+  /* 印刷用（layout=print）だけ表示する QR パネル */
+  #qr { position: absolute; z-index: 5; display: none; flex-direction: column; align-items: center; }
+  #qr .qr-label {
+    font-family: 'M PLUS 1p', sans-serif; font-weight: 900; color: #fff; white-space: nowrap;
+    letter-spacing: 0.06em; text-shadow: calc(var(--u) * 0.35) calc(var(--u) * 0.35) 0 #000;
+  }
+  #qr .qr-card {
+    background: #fff; border: calc(var(--line) * 1.3) solid #111; border-radius: calc(var(--u) * 2);
+    box-shadow: var(--shadow) var(--shadow) 0 #FF3D8B;
+  }
+  #qr .qr-card img { display: block; width: 100%; height: 100%; }
+  #qr .qr-url {
+    font-family: 'Orbitron', sans-serif; font-weight: 900; color: #FFD21F; white-space: nowrap;
+    letter-spacing: 0.02em; text-shadow: calc(var(--u) * 0.35) calc(var(--u) * 0.35) 0 #000;
+  }
   .stamp {
     position: absolute; z-index: 5;
     border-radius: 50%;
@@ -105,6 +120,11 @@
     </div>
   </div>
   <canvas id="seam"></canvas>
+  <div id="qr">
+    <div class="qr-label" id="qrLabel">＼ 今すぐプレイ！ ／</div>
+    <div class="qr-card" id="qrCard"><img src="../qr/snct-games-qr.svg" alt=""></div>
+    <div class="qr-url" id="qrUrl">snct-games.vercel.app</div>
+  </div>
   <div class="stamp" id="stamp"><span id="stamp1">高専祭</span><span id="stamp2">GAME</span></div>
   <div id="border"></div>
 </div>
@@ -131,6 +151,16 @@ const LAYOUTS = {
     copyDX: 0.54, titleD: 15.5, badgeD: 3.9,
     shotsX: 0.75, shotW: 0.9, shotsTop: 0.05, shotsBottom: 0.95,
     stamp: 0.24, stampY: 0.83,
+  },
+  // パンフレット等の印刷物向け（2:1）。右端にポータルのQRコードを大きく置き、各ゲームは縦積みにする
+  print: {
+    seamTop: 0.356, seamBot: 0.316,
+    phoneH: 0.56, phoneX: 0.182, phoneY: 0.5, phoneRot: 6,
+    copySX: 0.027, copySY: 0.06, copySRight: 0.333, titleS: 11, badgeS: 3.5, catchS: 4.2, catchBreak: true,
+    copyDX: 0.378, copyDY: 0.06, titleD: 8.5, titleDOneLine: true, badgeD: 3.4,
+    shotsX: 0.36, shotsRight: 0.662, shotW: 0.86, shotsTop: 0.3, shotsBottom: 0.95,
+    qrX: 0.678, qrSize: 0.5, qrLabelS: 3.8, qrUrlS: 3,
+    stamp: 0.15, stampX: 0.945, stampY: 0.12,
   },
 }
 const L = LAYOUTS[layout]
@@ -161,6 +191,7 @@ function styleCopy(prefix, x, titleSize, badgeSize, catchSize, maxRight) {
   badge.style.padding = `${u * 0.9}px ${u * 2.4}px`
   badge.style.marginBottom = u * 3.4 + 'px'
   const title = document.getElementById('title' + prefix)
+  if (prefix === 'D' && L.titleDOneLine) title.innerHTML = '高専ダッシュ<span class="bang">！</span>'
   let size = titleSize * u
   title.style.fontSize = size + 'px'
   // 境界線にかからない幅まで縮める
@@ -169,10 +200,12 @@ function styleCopy(prefix, x, titleSize, badgeSize, catchSize, maxRight) {
   if (w > room) title.style.fontSize = (size * room) / w + 'px'
   const catchEl = document.getElementById('catch' + prefix)
   if (catchEl) {
+    if (L.catchBreak) catchEl.innerHTML = 'ランキング<em>1位</em>を<br>目指せ！！'
     catchEl.style.fontSize = catchSize * u + 'px'
     catchEl.style.marginTop = u * 4 + 'px'
   }
-  copy.style.top = (H - copy.offsetHeight) / 2 - u * 2 + 'px'
+  const fixedY = L['copy' + prefix + 'Y']
+  copy.style.top = (fixedY !== undefined ? H * fixedY : (H - copy.offsetHeight) / 2 - u * 2) + 'px'
   return copy
 }
 
@@ -432,7 +465,7 @@ function drawDashBg(copyRect) {
 // ゲーム画面（snct-dash を自動プレイして撮影したもの）を互い違いに並べる
 function placeShots() {
   const left = W * L.shotsX
-  const region = W - u * 5 - left
+  const region = (L.shotsRight ? W * L.shotsRight : W - u * 5) - left
   const w = region * L.shotW
   const h = (w * 280) / 800
   const top = H * L.shotsTop
@@ -464,12 +497,26 @@ function drawSeam() {
   ctx.restore()
 }
 
+function placeQr() {
+  const qr = document.getElementById('qr')
+  const size = H * L.qrSize
+  qr.style.display = 'flex'
+  qr.style.left = W * L.qrX + 'px'
+  qr.style.width = W - u * 5 - W * L.qrX + 'px'
+  const card = document.getElementById('qrCard')
+  card.style.width = card.style.height = size + 'px'
+  card.style.margin = `${u * 2.5}px 0 ${u * 2.5}px`
+  document.getElementById('qrLabel').style.fontSize = u * L.qrLabelS + 'px'
+  document.getElementById('qrUrl').style.fontSize = u * L.qrUrlS + 'px'
+  qr.style.top = (H - qr.offsetHeight) / 2 + u * 3 + 'px'
+}
+
 function placeStamp() {
   const stamp = document.getElementById('stamp')
   const size = H * L.stamp
   const cy = H * L.stampY
   stamp.style.width = stamp.style.height = size + 'px'
-  stamp.style.left = seamXAt(cy) - size / 2 + 'px'
+  stamp.style.left = (L.stampX ? W * L.stampX : seamXAt(cy)) - size / 2 + 'px'
   stamp.style.top = cy - size / 2 + 'px'
   const s1 = document.getElementById('stamp1')
   s1.style.fontSize = size * 0.24 + 'px'
@@ -482,14 +529,15 @@ function placeStamp() {
 document.fonts.ready.then(() => {
   placePhone()
   const phoneRight = document.getElementById('phone').getBoundingClientRect().right
-  const copySX = Math.max(W * L.copySX, phoneRight + u * 5)
-  const copyS = styleCopy('S', copySX, L.titleS, L.badgeS, L.catchS, seamXAt(H * 0.6) - u * 6)
-  const copyD = styleCopy('D', W * L.copyDX, L.titleD, L.badgeD, 0, W * L.shotsX - u * 3)
+  const copySX = L.copySY !== undefined ? W * L.copySX : Math.max(W * L.copySX, phoneRight + u * 5)
+  const copyS = styleCopy('S', copySX, L.titleS, L.badgeS, L.catchS, L.copySRight ? W * L.copySRight : seamXAt(H * 0.6) - u * 6)
+  const copyD = styleCopy('D', W * L.copyDX, L.titleD, L.badgeD, 0, L.shotsRight ? W * L.shotsRight : W * L.shotsX - u * 3)
   drawShooterBg(copyS.getBoundingClientRect())
   drawDashBg(copyD.getBoundingClientRect())
   placeShots()
   drawSeam()
   placeStamp()
+  if (L.qrX) placeQr()
   document.body.dataset.ready = '1'
 })
 </script>
