@@ -5,7 +5,7 @@
 <!-- 高専祭HP掲載用の合同バナー（左：SNCT SHOOTER／右：高専ダッシュ！）。render.sh で PNG に書き出す -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=M+PLUS+1p:wght@800;900&family=Orbitron:wght@900&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=M+PLUS+1p:wght@800;900&family=Orbitron:wght@900&family=Bebas+Neue&family=Noto+Sans+JP:wght@900&family=Courier+Prime:wght@700&display=block" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { background: #000; overflow: hidden; }
@@ -96,9 +96,97 @@
     transform: rotate(-10deg);
     outline: calc(var(--line) * 0.8) solid #fff; outline-offset: calc(var(--line) * -2.6);
   }
+
+  /* ===== ポータル（第61回鈴鹿高専祭「collage」デザインシステム）風テーマ：layout=print で使用 ===== */
+  #frame.portal { --blue: #1a33d6; --red: #e31b23; --yellow: #f4d21f; --ink: #111111; --paper: #f8f8f8; background: var(--paper); }
+  .portal #border { border-color: var(--ink); border-width: calc(var(--u) * 0.9); }
+  .portal #seam { filter: url(#brush-edge); }
+  .portal .badge {
+    background: transparent; border: 0; box-shadow: none; border-radius: 0;
+    position: relative; z-index: 0;
+    font-family: 'Noto Sans JP', sans-serif; font-weight: 900;
+  }
+  .portal .badge::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: var(--tape-bg); filter: url(#tape-edge-l);
+  }
+  .portal .shooter .badge { --tape-bg: var(--red); color: #fff; }
+  .portal .dash .badge { --tape-bg: var(--yellow); color: var(--ink); }
+  .portal .dash .badge em { color: var(--red); }
+  .portal .shooter .title {
+    font-family: 'Bebas Neue', sans-serif; font-weight: 400;
+    color: var(--ink); -webkit-text-stroke: 0; letter-spacing: 0.03em; line-height: 0.92;
+    text-shadow: var(--tshadow) var(--tshadow) 0 var(--yellow);
+  }
+  .portal .dash .title {
+    font-family: 'Noto Sans JP', sans-serif; font-weight: 900; letter-spacing: 0.02em;
+    color: var(--ink); -webkit-text-stroke: 0; transform: none;
+    text-shadow: var(--tshadow) var(--tshadow) 0 var(--yellow);
+  }
+  .portal .dash .title .bang { color: var(--red); }
+  .portal .shooter .catch {
+    font-family: 'Noto Sans JP', sans-serif; color: var(--ink); text-shadow: none; line-height: 1.45;
+  }
+  .portal .shooter .catch em { color: var(--red); }
+  .portal .phone {
+    border-color: var(--ink);
+    box-shadow: calc(var(--pw) * 0.05) calc(var(--pw) * 0.05) 0 var(--ink);
+  }
+  .portal .shot {
+    border: calc(var(--line) * 1.1) solid var(--ink); border-radius: 0;
+    box-shadow: var(--shadow) var(--shadow) 0 var(--ink);
+  }
+  .portal #qr .qr-label {
+    position: relative; z-index: 0; color: #fff; text-shadow: none;
+    font-family: 'Noto Sans JP', sans-serif; padding: calc(var(--u) * 0.8) calc(var(--u) * 3);
+    transform: rotate(-2deg);
+  }
+  .portal #qr .qr-label::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: var(--ink); filter: url(#tape-edge-l);
+  }
+  .portal #qr .qr-card {
+    border: calc(var(--line) * 1.1) solid var(--ink); border-radius: 0;
+    box-shadow: var(--shadow) var(--shadow) 0 var(--ink);
+  }
+  .portal #qr .qr-url {
+    font-family: 'Courier Prime', monospace; font-weight: 700; color: var(--ink); text-shadow: none; letter-spacing: 0;
+  }
+  .portal .stamp {
+    background: var(--red); border-color: var(--ink);
+    box-shadow: var(--shadow) var(--shadow) 0 var(--ink);
+  }
+  .portal .stamp #stamp2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3em; letter-spacing: 0.06em; }
+  .portal .deco { position: absolute; z-index: 1; pointer-events: none; }
+  .portal .deco-star { position: absolute; z-index: 3; line-height: 1; font-family: 'Noto Sans JP', sans-serif; }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- ポータルの tape-edge / torn-edge を、バナーの解像度に合わせて強めたもの -->
+    <filter id="tape-edge-l" x="-10%" y="-30%" width="120%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.2" numOctaves="3" seed="7" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="12" />
+    </filter>
+    <filter id="brush-edge" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.06 0.01" numOctaves="3" seed="4" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="14" />
+    </filter>
+    <filter id="torn-edge-l" x="-15%" y="-15%" width="130%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="4" seed="3" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16" />
+    </filter>
+    <pattern id="dots-blue" width="22" height="22" patternUnits="userSpaceOnUse">
+      <rect width="22" height="22" fill="#f8f8f8" />
+      <circle cx="11" cy="11" r="5.5" fill="#1A33D6" />
+    </pattern>
+    <pattern id="stripe-red" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="18" height="18" fill="#f8f8f8" />
+      <rect width="18" height="8" fill="#E31B23" />
+    </pattern>
+  </defs>
+</svg>
 <div id="frame">
   <div class="half shooter" id="shooter">
     <canvas class="bg" id="bgShooter"></canvas>
@@ -156,14 +244,25 @@ const LAYOUTS = {
   print: {
     seamTop: 0.356, seamBot: 0.316,
     phoneH: 0.56, phoneX: 0.182, phoneY: 0.5, phoneRot: 6,
-    copySX: 0.027, copySY: 0.06, copySRight: 0.333, titleS: 11, badgeS: 3.5, catchS: 4.2, catchBreak: true,
+    theme: 'portal', titleSOneLine: true,
+    copySX: 0.027, copySY: 0.06, copySRight: 0.333, titleS: 14, badgeS: 3.5, catchS: 4.2, catchBreak: true,
     copyDX: 0.378, copyDY: 0.06, titleD: 8.5, titleDOneLine: true, badgeD: 3.4,
     shotsX: 0.36, shotsRight: 0.662, shotW: 0.86, shotsTop: 0.3, shotsBottom: 0.95,
     qrX: 0.678, qrSize: 0.5, qrLabelS: 3.8, qrUrlS: 3,
     stamp: 0.15, stampX: 0.945, stampY: 0.12,
+    // [種類, x, y, 幅, 高さ, 回転] 位置と大きさは W・H に対する割合
+    deco: [
+      ['dots', 0.03, 0.62, 0.1, 0.2, -6],
+      ['stripe', 0.668, 0.84, 0.045, 0.1, 10],
+      ['star', 0.232, 0.315, 0.034, 0, 15, 'red'],
+      ['star', 0.012, 0.47, 0.035, 0, -18, 'blue'],
+      ['star', 0.648, 0.17, 0.03, 0, -12, 'blue'],
+    ],
   },
 }
 const L = LAYOUTS[layout]
+const portal = L.theme === 'portal'
+if (portal) document.getElementById('frame').classList.add('portal')
 const u = H / 100
 const sTop = W * L.seamTop
 const sBot = W * L.seamBot
@@ -191,6 +290,7 @@ function styleCopy(prefix, x, titleSize, badgeSize, catchSize, maxRight) {
   badge.style.padding = `${u * 0.9}px ${u * 2.4}px`
   badge.style.marginBottom = u * 3.4 + 'px'
   const title = document.getElementById('title' + prefix)
+  if (prefix === 'S' && L.titleSOneLine) title.innerHTML = 'SNCT SHOOTER'
   if (prefix === 'D' && L.titleDOneLine) title.innerHTML = '高専ダッシュ<span class="bang">！</span>'
   let size = titleSize * u
   title.style.fontSize = size + 'px'
@@ -277,7 +377,14 @@ function burst(ctx, rand, x, y, spread, n, colors) {
 }
 
 // ===== 左半分：SNCT SHOOTER =====
+function drawPaper(id) {
+  const ctx = sizedCanvas(document.getElementById(id), W, H)
+  ctx.fillStyle = '#f8f8f8'
+  ctx.fillRect(0, 0, W, H)
+}
+
 function drawShooterBg(copyRect) {
+  if (portal) return drawPaper('bgShooter')
   const ctx = sizedCanvas(document.getElementById('bgShooter'), W, H)
   const rand = mulberry32(7)
   const g = ctx.createLinearGradient(0, 0, sTop, H)
@@ -425,6 +532,7 @@ function placePhone() {
 
 // ===== 右半分：高専ダッシュ！ =====
 function drawDashBg(copyRect) {
+  if (portal) return drawPaper('bgDash')
   const ctx = sizedCanvas(document.getElementById('bgDash'), W, H)
   const g = ctx.createLinearGradient(sBot, 0, W, H)
   g.addColorStop(0, '#141a3a')
@@ -488,6 +596,11 @@ function drawSeam() {
     ctx.strokeStyle = color; ctx.lineWidth = w
     ctx.beginPath(); ctx.moveTo(sTop, -u * 5); ctx.lineTo(sBot, H + u * 5); ctx.stroke()
   }
+  if (portal) {
+    // ポータルの区切り線と同じ、ちぎれた赤い帯
+    line(u * 2.6, '#e31b23')
+    return
+  }
   line(u * 3.6, '#111')
   line(u * 2, '#FFD21F')
   ctx.save()
@@ -495,6 +608,39 @@ function drawSeam() {
   ctx.globalCompositeOperation = 'destination-over'
   line(u * 3.6, 'rgba(0,0,0,0.6)')
   ctx.restore()
+}
+
+function placeDeco() {
+  const frame = document.getElementById('frame')
+  const NS = 'http://www.w3.org/2000/svg'
+  for (const [kind, x, y, w, h, rot, color] of L.deco || []) {
+    if (kind === 'star') {
+      const el = document.createElement('span')
+      el.className = 'deco-star'
+      el.textContent = '★'
+      el.style.color = color === 'red' ? '#e31b23' : '#1a33d6'
+      el.style.fontSize = W * w + 'px'
+      el.style.left = W * x + 'px'
+      el.style.top = H * y + 'px'
+      el.style.transform = `rotate(${rot}deg)`
+      frame.appendChild(el)
+      continue
+    }
+    const svg = document.createElementNS(NS, 'svg')
+    svg.classList.add('deco')
+    svg.setAttribute('width', W * w)
+    svg.setAttribute('height', H * h)
+    svg.style.left = W * x + 'px'
+    svg.style.top = H * y + 'px'
+    svg.style.transform = `rotate(${rot}deg)`
+    const rect = document.createElementNS(NS, 'rect')
+    rect.setAttribute('width', '100%')
+    rect.setAttribute('height', '100%')
+    rect.setAttribute('fill', kind === 'dots' ? 'url(#dots-blue)' : 'url(#stripe-red)')
+    rect.setAttribute('filter', 'url(#torn-edge-l)')
+    svg.appendChild(rect)
+    frame.appendChild(svg)
+  }
 }
 
 function placeQr() {
@@ -538,6 +684,7 @@ document.fonts.ready.then(() => {
   drawSeam()
   placeStamp()
   if (L.qrX) placeQr()
+  if (portal) placeDeco()
   document.body.dataset.ready = '1'
 })
 </script>
