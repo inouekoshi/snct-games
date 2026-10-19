@@ -115,17 +115,17 @@
   .portal .dash .badge em { color: var(--red); }
   .portal .shooter .title {
     font-family: 'Bebas Neue', sans-serif; font-weight: 400;
-    color: var(--ink); -webkit-text-stroke: 0; letter-spacing: 0.03em; line-height: 0.92;
+    color: var(--ink); -webkit-text-stroke: 0; letter-spacing: 0.03em; line-height: 0.86;
     text-shadow: var(--tshadow) var(--tshadow) 0 var(--yellow);
   }
   .portal .dash .title {
-    font-family: 'Noto Sans JP', sans-serif; font-weight: 900; letter-spacing: 0.02em;
+    font-family: 'Noto Sans JP', sans-serif; font-weight: 900; letter-spacing: 0.02em; line-height: 1.12;
     color: var(--ink); -webkit-text-stroke: 0; transform: none;
     text-shadow: var(--tshadow) var(--tshadow) 0 var(--yellow);
   }
   .portal .dash .title .bang { color: var(--red); }
   .portal .shooter .catch {
-    font-family: 'Noto Sans JP', sans-serif; color: var(--ink); text-shadow: none; line-height: 1.45;
+    font-family: 'Noto Sans JP', sans-serif; color: var(--ink); text-shadow: none; line-height: 1.3;
   }
   .portal .shooter .catch em { color: var(--red); }
   .portal .phone {
@@ -244,18 +244,18 @@ const LAYOUTS = {
   print: {
     seamTop: 0.356, seamBot: 0.316,
     phoneH: 0.56, phoneX: 0.182, phoneY: 0.5, phoneRot: 6,
-    theme: 'portal', titleSOneLine: true,
-    copySX: 0.027, copySY: 0.06, copySRight: 0.333, titleS: 14, badgeS: 3.5, catchS: 4.2, catchBreak: true,
-    copyDX: 0.378, copyDY: 0.06, titleD: 8.5, titleDOneLine: true, badgeD: 3.4,
+    theme: 'portal', noBadge: true,
+    copySX: 0.027, copySY: 0.035, copySRight: 0.333, titleS: 18.5, catchS: 5.8, catchBreak: true,
+    copyDX: 0.378, copyDY: 0.03, titleD: 12,
     shotsX: 0.36, shotsRight: 0.662, shotW: 0.86, shotsTop: 0.3, shotsBottom: 0.95,
-    qrX: 0.678, qrSize: 0.5, qrLabelS: 3.8, qrUrlS: 3,
+    qrX: 0.678, qrSize: 0.5, qrLabelS: 4.8, qrUrlS: 3.6,
     stamp: 0.15, stampX: 0.945, stampY: 0.12,
     // [種類, x, y, 幅, 高さ, 回転] 位置と大きさは W・H に対する割合
     deco: [
-      ['dots', 0.03, 0.62, 0.1, 0.2, -6],
-      ['stripe', 0.668, 0.84, 0.045, 0.1, 10],
-      ['star', 0.232, 0.315, 0.034, 0, 15, 'red'],
-      ['star', 0.012, 0.47, 0.035, 0, -18, 'blue'],
+      ['dots', 0.025, 0.71, 0.085, 0.2, -6],
+      ['stripe', 0.64, 0.85, 0.042, 0.1, 10],
+      ['star', 0.186, 0.06, 0.032, 0, 15, 'red'],
+      ['star', 0.1, 0.66, 0.03, 0, -18, 'blue'],
       ['star', 0.648, 0.17, 0.03, 0, -12, 'blue'],
     ],
   },
@@ -286,6 +286,7 @@ function styleCopy(prefix, x, titleSize, badgeSize, catchSize, maxRight) {
   copy.style.left = x + 'px'
   copy.style.maxWidth = maxRight - x + 'px'
   const badge = document.getElementById('badge' + prefix)
+  if (L.noBadge) badge.style.display = 'none'
   badge.style.fontSize = badgeSize * u + 'px'
   badge.style.padding = `${u * 0.9}px ${u * 2.4}px`
   badge.style.marginBottom = u * 3.4 + 'px'
@@ -301,8 +302,9 @@ function styleCopy(prefix, x, titleSize, badgeSize, catchSize, maxRight) {
   const catchEl = document.getElementById('catch' + prefix)
   if (catchEl) {
     if (L.catchBreak) catchEl.innerHTML = 'ランキング<em>1位</em>を<br>目指せ！！'
+    if (L.catchHtml) catchEl.innerHTML = L.catchHtml
     catchEl.style.fontSize = catchSize * u + 'px'
-    catchEl.style.marginTop = u * 4 + 'px'
+    catchEl.style.marginTop = u * (L.noBadge ? 2.5 : 4) + 'px'
   }
   const fixedY = L['copy' + prefix + 'Y']
   copy.style.top = (fixedY !== undefined ? H * fixedY : (H - copy.offsetHeight) / 2 - u * 2) + 'px'
