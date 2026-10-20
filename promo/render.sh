@@ -15,3 +15,4 @@ render() {
 render banner-4x1.png 2400 600 wide
 render banner-3x1.png 2400 800 tall
 render banner-2x1-qr.png 2700 1350 print
+render entry-16x9.png 1920 1080 entry
