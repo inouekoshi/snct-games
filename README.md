@@ -10,7 +10,7 @@
 | ゲーム | ジャンル / ステージ数 | URL | リポジトリ |
 |---|---|---|---|
 | 高専ダッシュ！ | アクション（全5ステージ・5学科テーマのタイムアタック） | https://kosendash.vercel.app | [snct-dash](https://github.com/inouekoshi/snct-dash) |
-| 暇つぶしシューティング | シューティング（全8ステージ＋高難度EXTRAモード） | https://casual-games-six.vercel.app | [snct-shooter](https://github.com/inouekoshi/snct-shooter) |
+| SNCT SHOOTER | シューティング（全8ステージ＋高難度EXTRAモード） | https://casual-games-six.vercel.app | [snct-shooter](https://github.com/inouekoshi/snct-shooter) |
 
 ## 特別協賛（SPECIAL SPONSOR）
 
