@@ -35,9 +35,9 @@
 
 `link_id` の値は、大ロゴが `corp_logo`、プロダクト3点が `bengo4` / `cloudsign` / `legalbrain`、最下部のコーポレートリンクが `corp_footer` です。大ロゴと最下部リンクは同じURLを指すので、どちらから飛んだかは `link_id` で見分けます。
 
-測定IDは `index.html` の `window.GA_MEASUREMENT_ID` で設定します。仮の値（`G-XXXXXXXXXX`）のままだと `gtag.js` を読み込まず、イベントはブラウザの `dataLayer` に積まれるだけです。本番の測定IDに書き換えると送信が始まります。
+測定ID（`G-LG8Q0HC1ER`）は `index.html` の `window.GA_MEASUREMENT_ID` で設定しています。ここを `G-XXXXXXXXXX` のような仮の値にすると `gtag.js` を読み込まなくなり、イベントはブラウザの `dataLayer` に積まれるだけになります。ローカルで動作を試すときに使えます。
 
-GA4 のレポートで `link_id` 別に集計するには、管理画面の「カスタム定義」で `link_id` をイベントスコープのカスタムディメンションとして登録しておく必要があります。登録より前のイベントには遡って適用されないため、測定IDを入れたらすぐに登録してください。
+`link_id` 別に集計できるよう、GA4 の管理画面の「カスタム定義」で `link_id` をイベントスコープのカスタムディメンションとして登録済みです。別のプロパティに切り替えた場合は、登録をやり直してください。登録より前のイベントには遡って適用されません。
 
 ## ディレクトリ構成
 
@@ -53,10 +53,20 @@ GA4 のレポートで `link_id` 別に集計するには、管理画面の「�
 │       ├── logo_B4.png
 │       ├── logo_cloudsign.png
 │       └── logo_LBA.png
+├── promo/            # 高専祭HPに載せる素材（サイトからは参照しない）
+│   ├── hp-entry.md   # 企画ページ用の原稿
+│   ├── banner.html   # バナーの元データ（render.sh で PNG に書き出す）
+│   ├── render.sh
+│   ├── banner-4x1.png / banner-3x1.png   # HP掲載用バナー
+│   ├── banner-2x1-qr.png                 # 印刷用のQRコード付きバナー
+│   ├── entry-16x9.png                    # 企画ページ用の画像
+│   └── shots/        # バナーに使うゲーム画面
 └── qr/               # パンフレット用QRコード
     ├── snct-games-qr.png
     └── snct-games-qr.svg
 ```
+
+バナー画像を作り直すときは、`promo/banner.html` を編集してから `sh promo/render.sh` を実行します。書き出しには Playwright の headless Chrome を使います。
 
 ## 更新とデプロイの手順
 
