@@ -14,6 +14,21 @@
   <meta property="og:image" content="https://snct-games.vercel.app/qr/snct-games-qr.png">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Google Analytics（GA4）：測定IDが仮（G-XXXXXXXXXX）の間は gtag.js を読み込まず、イベントは dataLayer に積むだけ -->
+  <script>
+    window.GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', window.GA_MEASUREMENT_ID);
+    if (!/X{5,}/.test(window.GA_MEASUREMENT_ID)) {
+      const gaScript = document.createElement('script');
+      gaScript.async = true;
+      gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_MEASUREMENT_ID;
+      document.head.appendChild(gaScript);
+    }
+  </script>
+
   <!-- テーマカラー & アイコン（高専祭HPの画用紙カラー #f8f8f8 に統一） -->
   <meta name="theme-color" content="#f8f8f8">
   <link rel="apple-touch-icon" href="assets/icons/dash-icon.png">
@@ -1326,7 +1341,7 @@
       <h2 class="tape black sec-title num" style="transform: rotate(-1.2deg);">SPECIAL SPONSOR</h2>
     </div>
 
-    <div class="sponsor-board">
+    <div class="sponsor-board" id="sponsorBoard">
       <!-- 親階層：弁護士ドットコム株式会社（名前とロゴを大きく表示） -->
       <div class="sponsor-hero">
         <div class="sponsor-corp-head">
@@ -1336,6 +1351,7 @@
         <a
           href="https://www.bengo4.com/corporate/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
           class="sponsor-corp-logo-link"
+          data-sponsor-link="corp_logo"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="弁護士ドットコム株式会社 コーポレートサイト"
@@ -1368,6 +1384,7 @@
           <a
             href="https://www.bengo4.com/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
             class="sponsor-card"
+            data-sponsor-link="bengo4"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1390,6 +1407,7 @@
           <a
             href="https://www.cloudsign.jp/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
             class="sponsor-card accent-red"
+            data-sponsor-link="cloudsign"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1412,6 +1430,7 @@
           <a
             href="https://legalbrain.com/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
             class="sponsor-card"
+            data-sponsor-link="legalbrain"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1437,6 +1456,7 @@
         <a
           href="https://www.bengo4.com/corporate/?utm_source=snct-fes&utm_medium=referral&utm_campaign=kosensai2026&utm_content=games"
           class="sponsor-corp-footer-link"
+          data-sponsor-link="corp_footer"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -1468,6 +1488,10 @@
           協賛企業一覧 ↗
         </a>
       </div>
+
+      <p class="footer-notes">
+        このサイトでは、閲覧状況を把握するために Google Analytics（Cookie）を使用しています。
+      </p>
 
       <p class="copyright">
         第61回鈴鹿高専祭「collage」実行委員会 / SNCT Games
@@ -1531,6 +1555,36 @@
           ticking = false;
         });
       }, { passive: true });
+    })();
+
+    // スポンサー枠の計測（GA4）：表示回数（sponsor_view）とリンク別クリック数（sponsor_click）
+    (function () {
+      const board = document.getElementById('sponsorBoard');
+      if (!board || typeof gtag !== 'function') return;
+
+      // 枠の50%以上が画面に入ったら1回だけ送る（スマホで枠が画面より縦長な場合は、画面の50%以上を枠が占めたら）
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const viewportHeight = entry.rootBounds ? entry.rootBounds.height : window.innerHeight;
+            const seen = entry.intersectionRatio >= 0.5 || entry.intersectionRect.height >= viewportHeight * 0.5;
+            if (!seen) return;
+            gtag('event', 'sponsor_view');
+            observer.disconnect();
+          });
+        }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+        observer.observe(board);
+      }
+
+      board.querySelectorAll('[data-sponsor-link]').forEach((link) => {
+        link.addEventListener('click', () => {
+          gtag('event', 'sponsor_click', {
+            link_id: link.dataset.sponsorLink,
+            link_url: link.href
+          });
+        });
+      });
     })();
 
     const btnShare = document.getElementById('btnShare');
